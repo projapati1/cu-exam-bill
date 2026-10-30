@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>চট্টগ্রাম বিশ্ববিদ্যালয় - পরীক্ষা সংক্রান্ত কাজের পারিতোষিক বিল ফরম</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts for authentic Bengali Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@500;600;700;800&family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Hind Siliguri', sans-serif;
+    }
+    .serif-bn {
+      font-family: 'Noto Serif Bengali', serif;
+    }
+    .serial-font {
+      font-family: 'Courier Prime', monospace;
+    }
+
+    /* Dotted underline inputs matching the original university printed template */
+    .dotted-input {
+      border: none;
+      border-bottom: 1px dotted #1e293b;
+      background: transparent;
+      padding: 0 4px;
+      outline: none;
+      font-weight: 600;
+      color: #0f172a;
+      height: 21px;
+    }
+    .dotted-input:focus {
+      border-bottom: 1.5px solid #000;
+      background: #fffbeb;
+    }
+
+    /* Legal Paper Container (8.5in x 14in / 215.9mm x 355.6mm) */
+    .legal-sheet {
+      width: 215.9mm;
+      min-height: 355.6mm;
+      margin: 0 auto;
+      background: #ffffff;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      padding: 7mm 9mm 6mm 9mm;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .page-break {
+      page-break-after: always;
+      break-after: page;
+    }
+
+    /* Print settings strictly configured for Legal size (8.5 x 14 inches) */
+    @media print {
+      @page {
+        size: 8.5in 14in;
+        margin: 4mm 5mm 4mm 5mm;
+      }
+      *, *::before, *::after {
+        box-sizing: border-box !important;
+      }
+      html, body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .legal-sheet {
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 2.5mm 4mm 2.5mm 4mm !important;
+        width: 100% !important;
+        min-height: auto !important;
+        box-sizing: border-box !important;
+      }
+      /* PAGE 1: EXACTLY 1 PAGE */
+      #billSheet {
+        height: auto !important;
+        max-height: 342mm !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        overflow: hidden !important;
+      }
+      /* PAGE 2: EXACTLY 1 PAGE, NEVER BREAK TO A 3RD PAGE */
+      #rateSheet {
+        height: auto !important;
+        max-height: 342mm !important;
+        margin-top: 0 !important;
+        page-break-before: always !important;
+        break-before: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+        overflow: hidden !important;
+      }
+      .page-gap {
+        margin-top: 0 !important;
+      }
+      .dotted-input {
+        border-bottom: 1px dotted #000 !important;
+        color: #000 !important;
+      }
+      table, th, td {
+        border-color: #000000 !important;
+      }
+      input::placeholder, textarea::placeholder {
+        color: transparent !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-200 text-slate-900 antialiased min-h-screen flex flex-col py-0 sm:py-6">
+
+  <!-- Header Navigation Bar (Screen Only) -->
+  <header class="no-print bg-slate-900 text-white shadow sticky top-0 z-50 mb-4">
+    <div class="max-w-6xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2.5">
+      <div class="flex items-center space-x-2.5">
+        <span class="w-8 h-8 bg-emerald-600 rounded flex items-center justify-center font-bold text-base">চবি</span>
+        <div>
+          <h1 class="text-sm sm:text-base font-bold leading-tight">চট্টগ্রাম বিশ্ববিদ্যালয় পরীক্ষা সংক্রান্ত পারিতোষিক বিল ফরম</h1>
+          <p class="text-[11px] text-slate-400">পাতা ১: মূল বিল ফরম • পাতা ২: সিন্ডিকেট ৫৫৮তম সভা অনুমোদিত পারিতোষিক হার</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-1.5">
+        <!-- Fit Control Selector -->
+        <div class="flex items-center bg-slate-800 border border-slate-700 rounded px-2 py-1 text-xs text-slate-300 gap-1.5" title="বিল পাতাটি ১ পাতায় রাখতে স্কেল নির্বাচন করুন">
+          <span>📄 ফিট:</span>
+          <select id="fitScaleSelect" onchange="applyUserFitScale()" class="bg-slate-900 text-emerald-400 font-semibold rounded px-1 py-0.5 border border-slate-600 focus:outline-none cursor-pointer">
+            <option value="auto">অটো (১ পাতায় বিল)</option>
+            <option value="1.0">১০০%</option>
+            <option value="0.95">৯৫%</option>
+            <option value="0.90">৯০%</option>
+            <option value="0.85">৮৫%</option>
+          </select>
+        </div>
+
+        <button onclick="toggleTranscriptionModal()" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-emerald-400 text-xs font-semibold rounded border border-slate-700 transition flex items-center gap-1">
+          📄 মূল বাংলা টেক্সট
+        </button>
+        <button onclick="toggleRatesModal()" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-400 text-xs font-semibold rounded border border-slate-700 transition flex items-center gap-1">
+          ⚖️ পারিতোষিক হার
+        </button>
+        <button onclick="fillSampleData()" class="px-2.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded shadow transition flex items-center gap-1">
+          ✍️ নমুনা পূরণ
+        </button>
+        <button onclick="downloadPreFilledHtml()" class="px-2.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded shadow transition flex items-center gap-1" title="তথ্যসহ এই HTML ফাইলটি ডাউনলোড করুন">
+          💾 তথ্যসহ HTML ফাইল
+        </button>
+        <button onclick="clearForm()" class="px-2.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-semibold rounded shadow transition flex items-center gap-1">
+          🔄 খালি ফরম
+        </button>
+        <button onclick="printLegalForm()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded shadow transition flex items-center gap-1.5 ring-2 ring-emerald-400" title="ঠিক ২ পাতায় লিগ্যাল সাইজে প্রিন্ট বা PDF করুন">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+          লিগ্যাল প্রিন্ট / PDF (ঠিক ২ পাতা)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Legal Sheet Paper Container: PAGE 1 (BILL FORM) -->
+  <main id="billSheet" class="legal-sheet page-break">
+    <!-- Header: Empty on Left (A 00000 removed), Centered Crest Logo, Right Register Page/Serial -->
+    <div class="grid grid-cols-12 items-center mb-1">
+      <!-- Left: Empty spacer -->
+      <div class="col-span-3"></div>
+
+      <!-- Center: University Crest Logo -->
+      <div class="col-span-6 flex justify-center">
+        <div class="relative group cursor-pointer" onclick="document.getElementById('logoFileInput').click()" title="লোগো পরিবর্তন করতে ক্লিক করুন">
+          <div id="logoDisplayContainer" class="flex justify-center items-center">
+            <svg class="h-14 w-auto object-contain drop-shadow-sm" viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Crest Background Shield -->
+              <path d="M100 8 C155 8 188 38 188 95 C188 182 135 248 100 272 C65 248 12 182 12 95 C12 38 45 8 100 8 Z" fill="#000000"/>
+              <!-- Top Crown Flame / Arabic Lamp Design -->
+              <path d="M100 32 C98 38 97 44 93 48 C91 50 88 51 86 49 C84 47 85 43 88 41 C90 40 92 41 93 43 M100 35 V75 C100 82 94 85 87 83 C84 82 82 78 85 75 C88 72 92 75 92 78 M102 46 C105 44 109 44 112 47 C114 50 113 54 110 56 C107 57 104 55 104 52 M102 60 C106 58 112 60 114 64 C116 68 113 72 109 73 C105 74 103 71 103 67" stroke="#000000" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+              <!-- Middle Left White Window (Open Book) -->
+              <rect x="22" y="112" width="70" height="70" rx="4" fill="#ffffff"/>
+              <path d="M38 126 L34 120 M46 123 L45 116 M57 122 L57 115 M68 123 L69 116 M76 126 L80 120" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+              <path d="M57 137 L57 168 M57 137 C48 132 38 133 34 137 V168 C39 164 48 163 57 167 C66 163 75 164 80 168 V137 C76 133 66 132 57 137 Z" fill="#000000" stroke="#000000" stroke-width="1.5" fill-rule="evenodd"/>
+              <path d="M40 143 C46 141 52 142 55 145 M40 149 C46 147 52 148 55 151 M40 155 C46 153 52 154 55 157 M59 145 C62 142 68 141 74 143 M59 151 C62 148 68 147 74 149 M59 157 C62 154 68 153 74 155" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
+
+              <!-- Middle Right White Window (Atomic Orbital) -->
+              <rect x="108" y="112" width="70" height="70" rx="4" fill="#ffffff"/>
+              <circle cx="143" cy="147" r="6" fill="#000000"/>
+              <ellipse cx="143" cy="147" rx="26" ry="10" fill="none" stroke="#000000" stroke-width="2.5"/>
+              <ellipse cx="143" cy="147" rx="26" ry="10" transform="rotate(60 143 147)" fill="none" stroke="#000000" stroke-width="2.5"/>
+              <ellipse cx="143" cy="147" rx="26" ry="10" transform="rotate(120 143 147)" fill="none" stroke="#000000" stroke-width="2.5"/>
+
+              <!-- Lower Section: 3 Mountain Hills -->
+              <rect x="22" y="194" width="156" height="18" rx="2" fill="#ffffff"/>
+              <polygon points="32,212 58,198 84,212" fill="#000000"/>
+              <polygon points="74,212 100,198 126,212" fill="#000000"/>
+              <polygon points="116,212 142,198 168,212" fill="#000000"/>
+
+              <!-- 5 Wave / Petal Symbols -->
+              <g fill="#ffffff">
+                <polygon points="52,219 58,226 52,233 46,226"/>
+                <polygon points="76,219 82,226 76,233 70,226"/>
+                <polygon points="100,219 106,226 100,233 94,226"/>
+                <polygon points="124,219 130,226 124,233 118,226"/>
+                <polygon points="148,219 154,226 148,233 142,226"/>
+              </g>
+
+              <!-- Bottom Curved Banner Text (চট্টগ্রাম বিশ্ববিদ্যালয়) -->
+              <path id="cuTextPath" d="M 28,235 C 50,272 150,272 172,235" fill="none"/>
+              <text font-size="13" font-family="'Hind Siliguri', sans-serif" font-weight="700" fill="#ffffff" letter-spacing="1.2">
+                <textPath href="#cuTextPath" startOffset="50%" text-anchor="middle">
+                  চট্টগ্রাম বিশ্ববিদ্যালয়
+                </textPath>
+              </text>
+            </svg>
+          </div>
+
+          <input type="file" id="logoFileInput" accept="image/*" class="hidden" onchange="handleLogoUpload(event)">
+          <div class="no-print absolute -bottom-3 left-1/2 -translate-x-1/2 bg-black text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap pointer-events-none">
+            লোগো আপলোড
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Register Page & Examiner Serial (As per original form) -->
+      <div class="col-span-3 text-right space-y-0.5 text-[10px] leading-tight">
+        <div class="flex items-baseline justify-end">
+          <span class="font-medium whitespace-nowrap">রেজিস্টারের পৃষ্ঠা নং</span>
+          <input type="text" id="regPageNo" class="dotted-input w-20 text-center text-[10.5px] ml-1">
+        </div>
+        <div class="flex items-baseline justify-end">
+          <span class="font-medium whitespace-nowrap">পরীক্ষকের ক্রমিক নং</span>
+          <input type="text" id="examinerSerialNo" class="dotted-input w-20 text-center text-[10.5px] ml-1">
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Title & Notice -->
+    <div class="text-center mb-1">
+      <h2 class="serif-bn text-[16.5px] font-bold text-black tracking-normal leading-tight">
+        পরীক্ষা সংক্রান্ত কাজের পারিতোষিক বিল ফরম
+      </h2>
+      <p class="text-[8.5px] leading-tight text-black max-w-2xl mx-auto mt-0.5 font-normal">
+        (বিল সংশ্লিষ্ট পরীক্ষা কমিটির চেয়ারম্যানের মাধ্যমে পরীক্ষা অনুষ্ঠিত হওয়ার এক বছরের মধ্যে পরীক্ষা নিয়ন্ত্রণ দপ্তরে দাখিল করতে হবে। প্রতি পরীক্ষার জন্য পৃথক পৃথকভাবে বিল দাখিল করতে হবে।)
+      </p>
+    </div>
+
+    <!-- Personal & Examination Info Table (Strictly matching original CU printed form) -->
+    <table class="w-full border-collapse border border-black text-[10px] leading-tight text-black mb-1">
+      <tbody>
+        <!-- Row 1 & 2: Names (Left single cell without divider) and Subject/Exam (Right) -->
+        <tr class="border-b border-black">
+          <td rowspan="2" class="border-r border-black p-0.5 w-[130px] align-middle font-medium bg-slate-50/20">
+            <div class="flex flex-col justify-between h-[36px] py-0.5">
+              <span>পরীক্ষকের নাম (বাংলায়) :</span>
+              <span>ইংরেজিতে (বড় অক্ষরে) :</span>
+            </div>
+          </td>
+          <td class="border-r border-black p-0.5 align-middle">
+            <input type="text" id="examinerNameBn" class="dotted-input w-full font-bold">
+          </td>
+          <td class="p-0.5 w-[180px] align-middle">
+            <div class="flex items-baseline px-0.5">
+              <span class="whitespace-nowrap font-medium text-[9.5px]">বিষয় :</span>
+              <input type="text" id="subjectName" class="dotted-input flex-1 ml-0.5 font-semibold text-[10px]">
+            </div>
+          </td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border-r border-black p-0.5 align-middle">
+            <input type="text" id="examinerNameEn" class="dotted-input w-full uppercase font-semibold">
+          </td>
+          <td class="p-0.5 align-middle">
+            <div class="flex items-baseline px-0.5">
+              <span class="whitespace-nowrap font-medium text-[9.5px]">পরীক্ষার নাম :</span>
+              <input type="text" id="examName" class="dotted-input flex-1 ml-0.5 font-semibold text-[10px]">
+            </div>
+          </td>
+        </tr>
+
+        <!-- Row 3 & 4: Designation, Mobile (Left single cell without divider) and Year/Date (Right) -->
+        <tr class="border-b border-black">
+          <td rowspan="2" class="border-r border-black p-0.5 w-[130px] align-middle font-medium bg-slate-50/20">
+            <div class="flex flex-col justify-between h-[36px] py-0.5">
+              <span>পদবী, পূর্ণ ঠিকানা :</span>
+              <span>ও মোবাইল নম্বর :</span>
+            </div>
+          </td>
+          <td class="border-r border-black p-0.5 align-middle">
+            <input type="text" id="designationAddress" list="designationList" placeholder="পদবী ও পূর্ণ ঠিকানা" class="dotted-input w-full">
+          </td>
+          <td class="p-0.5 align-middle">
+            <div class="flex items-baseline px-0.5">
+              <span class="whitespace-nowrap font-medium text-[9.5px]">পরীক্ষার বৎসর :</span>
+              <input type="text" id="examYear" list="examYearList" placeholder="যেমন: ২০২৪" class="dotted-input flex-1 ml-0.5 font-semibold text-[10px]">
+            </div>
+          </td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border-r border-black p-0.5 align-middle">
+            <input type="text" id="examinerMobile" placeholder="মোবাইল নম্বর" class="dotted-input w-full font-mono">
+          </td>
+          <td class="p-0.5 align-middle">
+            <div class="flex items-baseline px-0.5">
+              <span class="whitespace-nowrap font-medium text-[9px]">পরীক্ষা অনুষ্ঠানের তারিখ :</span>
+              <input type="text" id="examDates" placeholder="তারিখ" class="dotted-input flex-1 ml-0.5 font-semibold text-[9px]">
+              <div class="no-print flex items-center ml-0.5 gap-0.5">
+                <input type="date" id="startDatePicker" title="শুরুর তারিখ" class="border border-slate-300 rounded text-[8px] bg-white cursor-pointer hover:border-slate-500 w-3.5 h-3.5 p-0" onchange="updateExamDatesFromPickers()">
+                <input type="date" id="endDatePicker" title="শেষের তারিখ" class="border border-slate-300 rounded text-[8px] bg-white cursor-pointer hover:border-slate-500 w-3.5 h-3.5 p-0" onchange="updateExamDatesFromPickers()">
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Row 5 & 6: ID Number / Bank Info (Left single cell without divider) and Bank Details (Right) -->
+        <tr class="border-b border-black">
+          <td rowspan="2" class="border-r border-black p-0.5 w-[130px] align-middle bg-slate-50/20">
+            <div class="flex flex-col justify-between h-[36px] py-0.5">
+              <span class="font-medium">ID Number :</span>
+              <span class="font-bold">ব্যাংক হিসাব তথ্য :</span>
+            </div>
+          </td>
+          <td colspan="2" class="p-0.5 align-middle border-b border-black">
+            <div class="flex items-baseline justify-between px-1 gap-2">
+              <div class="flex items-baseline flex-1">
+                <span class="font-medium whitespace-nowrap">হিসাব নম্বর :</span>
+                <input type="text" id="bankAccNo" class="dotted-input flex-1 ml-1 font-mono font-bold">
+              </div>
+              <div class="flex items-baseline flex-1">
+                <span class="font-medium whitespace-nowrap">ব্যাংকের নাম :</span>
+                <input type="text" id="bankName" list="bankNameList" onchange="handleBankSelection()" value="অগ্রণী ব্যাংক পিএলসি" class="dotted-input flex-1 ml-1 font-semibold">
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="p-0.5 align-middle">
+            <div class="flex items-baseline justify-between px-1 gap-2">
+              <div class="flex items-baseline flex-1">
+                <span class="font-medium whitespace-nowrap"> শাখা :</span>
+                <input type="text" id="bankBranch" list="branchList" onchange="handleBankSelection()" value="চ.বি. শাখা" class="dotted-input flex-1 ml-1">
+              </div>
+              <div class="flex items-baseline flex-1">
+                <span class="font-medium whitespace-nowrap">রাউটিং নম্বর :</span>
+                <input type="text" id="bankRouting" value="০১০১৫২০৮৫" class="dotted-input flex-1 ml-1 font-mono font-bold">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Datalist Autocomplete Providers (Hidden from UI, active on double-click/typing) -->
+    <datalist id="examYearList">
+      <option value="২০২৬">২০২৬</option>
+      <option value="২০২৫">২০২৫</option>
+      <option value="২০২৪">২০২৪</option>
+      <option value="২০২৩">২০২৩</option>
+      <option value="২০২২">২০২২</option>
+    </datalist>
+
+    <datalist id="examNameList">
+      <option value="৪র্থ বর্ষ বি.এস.সি. (সম্মান) পরীক্ষা">
+      <option value="৩য় বর্ষ বি.এস.সি. (সম্মান) পরীক্ষা">
+      <option value="২য় বর্ষ বি.এস.সি. (সম্মান) পরীক্ষা">
+      <option value="১ম বর্ষ বি.এস.সি. (সম্মান) পরীক্ষা">
+      <option value="৪র্থ বর্ষ বি.এ. (সম্মান) পরীক্ষা">
+      <option value="৩য় বর্ষ বি.এ. (সম্মান) পরীক্ষা">
+      <option value="২য় বর্ষ বি.এ. (সম্মান) পরীক্ষা">
+      <option value="১ম বর্ষ বি.এ. (সম্মান) পরীক্ষা">
+      <option value="বি.বি.এ. পরীক্ষা">
+      <option value="মাস্টার্স / এম.এস. পরীক্ষা">
+      <option value="এম.ফিল পরীক্ষা">
+      <option value="পি.এইচ.ডি পরীক্ষা">
+    </datalist>
+
+    <datalist id="bankNameList">
+      <option value="অগ্রণী ব্যাংক পিএলসি">অগ্রণী ব্যাংক পিএলসি (চ.বি. শাখা)</option>
+      <option value="জনতা ব্যাংক পিএলসি">জনতা ব্যাংক পিএলসি (চ.বি. শাখা)</option>
+      <option value="সোনালী ব্যাংক পিএলসি">সোনালী ব্যাংক পিএলসি (চ.বি. শাখা)</option>
+    </datalist>
+
+    <datalist id="branchList">
+      <option value="চ.বি. শাখা">
+      <option value="চট্টগ্রাম বিশ্ববিদ্যালয় শাখা">
+      <option value="হাটহাজারী শাখা">
+      <option value="লালদীঘি পূর্ব শাখা">
+    </datalist>
+
+    <datalist id="designationList">
+      <option value="অধ্যাপক, চট্টগ্রাম বিশ্ববিদ্যালয়">
+      <option value="সহযোগী অধ্যাপক, চট্টগ্রাম বিশ্ববিদ্যালয়">
+      <option value="সহকারী অধ্যাপক, চট্টগ্রাম বিশ্ববিদ্যালয়">
+      <option value="প্রভাষক, চট্টগ্রাম বিশ্ববিদ্যালয়">
+    </datalist>
+
+    <datalist id="hoursList">
+      <option value="৪ ঘণ্টা">
+      <option value="৩ ঘণ্টা">
+      <option value="২.৫ ঘণ্টা">
+      <option value="২ ঘণ্টা">
+    </datalist>
+
+    <!-- Main Table: Exact 18 serials matching Chittagong University Bill Form -->
+    <table class="w-full border-collapse border border-black text-[9px] leading-[1.08]">
+      <thead>
+        <tr class="text-center font-bold border-b border-black">
+          <th class="border border-black p-0.5 w-[28px]">ক্রমিক<br>নং</th>
+          <th class="border border-black p-0.5 w-[215px] text-center">কাজের নাম</th>
+          <th class="border border-black p-0.5 w-[65px]">কোর্স নং</th>
+          <th class="border border-black p-0.5 w-[68px]">খাতা/ছাত্রের<br>সংখ্যা</th>
+          <th class="border border-black p-0.5 w-[115px]">কত ঘণ্টার পরীক্ষা/<br>প্রশ্নপত্রের মোট পৃষ্ঠা সংখ্যা</th>
+          <th class="border border-black p-0.5 w-[68px]">মোট দিন /<br>সদস্য সংখ্যা</th>
+          <th class="border border-black p-0.5 w-[68px]">অর্ধ/পূর্ণ<br>পত্র ক্রেডিট</th>
+          <th class="border border-black p-0.5 w-[85px]">টাকার পরিমাণ</th>
+        </tr>
+      </thead>
+      <tbody id="billTableRows" class="border-b border-black">
+        <!-- Rendered dynamically -->
+      </tbody>
+      <tfoot>
+        <tr class="font-bold border-t border-black">
+          <td colspan="7" class="border border-black p-0.5 text-left">
+            মোট টাকা (কথায় = <span id="totalInWords" class="font-bold underline px-1 text-[9.5px]">শূন্য টাকা মাত্র</span>) =
+          </td>
+          <td class="border border-black p-0.5 text-right font-mono font-bold text-[10px]" id="grandTotalDisplay">
+            ০.০০
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <!-- Signature Row with ample space for physical signatures and seal -->
+    <div class="flex justify-between items-end mt-2.5 px-4 text-[10px] font-semibold">
+      <div class="text-center w-52 flex flex-col justify-end">
+        <!-- Clear signature space -->
+        <div class="h-9 flex items-center justify-center"></div>
+        <div class="border-t border-dotted border-black pt-0.5">প্রতি স্বাক্ষর, সভাপতি, পরীক্ষা কমিটি</div>
+        <div class="text-[8px] font-normal">(সীলমোহর)</div>
+      </div>
+      <div class="text-center w-52 flex flex-col justify-end">
+        <!-- Clear signature space -->
+        <div class="h-9 flex items-center justify-center"></div>
+        <div class="border-t border-dotted border-black pt-0.5">পরীক্ষকের স্বাক্ষর</div>
+        <div class="text-[8.5px] font-normal">তারিখ: <span id="signDate"></span></div>
+      </div>
+    </div>
+
+    <!-- Official Office Section (Revenue Stamp on LEFT, Sanction & Signatures on RIGHT) -->
+    <div class="mt-1 pt-1 border-t border-black text-[9.5px] leading-tight">
+      <div class="grid grid-cols-12 gap-2 items-stretch">
+        
+        <!-- Left: Revenue Stamp & Receipt Voucher (Original placement) -->
+        <div class="col-span-4 p-1 flex flex-col justify-between items-center text-center">
+          <div class="text-[9px] font-bold">বিল সংশ্লিষ্ট চেক বুঝে পেলাম।</div>
+          
+          <div class="w-12 h-14 border border-dashed border-red-500 rounded flex flex-col items-center justify-center text-[8px] text-red-600 font-bold my-0.5 bg-red-50/20">
+            <span>রাজস্ব</span>
+            <span>টিকিট</span>
+            <span class="text-[7px] text-slate-500">১০/-</span>
+          </div>
+
+          <div class="w-full border-t border-dotted border-black pt-0.5 text-[8.5px] font-bold">
+            তারিখসহ গ্রহণকারীর স্বাক্ষর
+          </div>
+        </div>
+
+        <!-- Right: Sanction Order & 4 Signatures (Original placement) -->
+        <div class="col-span-8 flex flex-col justify-between pl-1 min-h-[120px]">
+          <div class="space-y-1">
+            <div class="flex items-baseline">
+              <span class="font-medium whitespace-nowrap">বিষয় :</span>
+              <span id="officeSubject" class="dotted-input flex-1 min-h-[15px] mx-1 text-center font-semibold text-[9px]"></span>
+              <span class="font-medium whitespace-nowrap ml-1">পরীক্ষা :</span>
+              <span id="officeExam" class="dotted-input flex-1 min-h-[15px] ml-1 text-center font-semibold text-[9px]"></span>
+            </div>
+
+            <div class="flex items-baseline leading-relaxed">
+              <span class="font-medium whitespace-nowrap">প্রফেসর/ড./জনাব</span>
+              <span id="officePayeeName" class="dotted-input flex-1 min-h-[15px] mx-1 font-bold text-center text-[9px]"></span>
+              <span class="font-medium whitespace-nowrap">কে মোট</span>
+              <span id="officeTotalAmount" class="dotted-input w-20 min-h-[15px] mx-1 text-center font-bold font-mono text-[9px]"></span>
+              <span class="font-medium whitespace-nowrap">টাকা</span>
+            </div>
+
+            <div class="flex items-baseline">
+              <span class="font-medium whitespace-nowrap">(কথায়) :</span>
+              <span id="officeTotalWords" class="dotted-input flex-1 min-h-[15px] mx-1 font-semibold text-center text-[8.5px]"></span>
+              <span class="font-medium whitespace-nowrap">মাত্র প্রদান করুন।</span>
+            </div>
+          </div>
+
+          <!-- 4 Official Signatures with expanded height for signatures/stamps -->
+          <div class="grid grid-cols-4 gap-1.5 text-[8.5px] text-center font-bold pt-1">
+            <div class="flex flex-col justify-end">
+              <div class="h-8"></div>
+              <div class="border-t border-dotted border-black pt-0.5">বিল সহকারী</div>
+            </div>
+            <div class="flex flex-col justify-end">
+              <div class="h-8"></div>
+              <div class="border-t border-dotted border-black pt-0.5">সেকশন অফিসার</div>
+            </div>
+            <div class="flex flex-col justify-end">
+              <div class="h-8"></div>
+              <div class="border-t border-dotted border-black pt-0.5 leading-tight">উপ-পরীক্ষা নিয়ন্ত্রক,<br>চ.বি.</div>
+            </div>
+            <div class="flex flex-col justify-end">
+              <div class="h-8"></div>
+              <div class="border-t border-dotted border-black pt-0.5 leading-tight">হিসাব নিয়ামক/<br>উপ-হিসাব নিয়ামক</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Original Printing Press Code -->
+      <div class="text-[7.5px] text-slate-600 text-right mt-0.5 font-mono">
+        চবিলে-৪৬০-৩৩,০০০-৩-২০২৫/ Controller of Exam Paritos Bill Form Job work-F
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Legal Sheet Paper Container: PAGE 2 (RATE SCHEDULE AS PER SYNDICATE 558) -->
+  <section id="rateSheet" class="legal-sheet page-gap mt-8">
+    <div class="text-center mb-1.5">
+      <h2 class="serif-bn text-[16px] font-bold text-black tracking-normal leading-tight">
+        পরীক্ষা-সংশ্লিষ্ট বিভিন্ন কাজের পারিতোষিক হার
+      </h2>
+      <p class="text-[10px] font-semibold text-black mt-0.5 leading-tight">
+        [০৪/০১/২০২৫ তারিখে অনুষ্ঠিত চট্টগ্রাম বিশ্ববিদ্যালয় সিন্ডিকেটের ৫৫৮-তম সভার ৩ নম্বর সিদ্ধান্তে অনুমোদিত]
+      </p>
+      <p class="text-[8.5px] text-black mt-0.5 underline">
+        নিম্নবর্ণিত পারিতোষিক হার ২০২৩ সালের পরীক্ষাসমূহ হতে কার্যকর হবে।
+      </p>
+    </div>
+
+    <!-- Page 2 Rates Table: 4 Columns with Separate 'কাজের বিবরণ' Column -->
+    <table class="w-full border-collapse border border-black text-[8.5px] leading-[1.12]">
+      <thead>
+        <tr class="text-center font-bold border-b border-black bg-slate-50 print:bg-transparent">
+          <th class="border border-black p-0.5 w-[30px]">ক্রমিক</th>
+          <th class="border border-black p-0.5 w-[190px] text-left">কাজের বিবরণ</th>
+          <th class="border border-black p-0.5 text-left">ঘণ্টা/অন্যান্য খাতসমূহ</th>
+          <th class="border border-black p-0.5 w-[140px] text-right pr-2">টাকার পরিমাণ</th>
+        </tr>
+      </thead>
+      <tbody id="billTableRows" class="border-b border-black">
+        <!-- Rendered dynamically -->
+      </tbody>
+      <tfoot>
+        <tr class="font-bold border-t border-black">
+          <td colspan="7" class="border border-black p-1 text-left">
+            মোট টাকা (কথায় = <span id="totalInWords" class="font-bold underline px-1 text-[10px]">শূন্য টাকা মাত্র</span>) =
+          </td>
+          <td class="border border-black p-1 text-right font-mono font-bold text-[10.5px]" id="grandTotalDisplay">
+            ০.০০
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <!-- Signature Row with ample space for physical signatures and seal -->
+    <div class="flex justify-between items-end mt-4 px-4 text-[10.5px] font-semibold">
+      <div class="text-center w-56 flex flex-col justify-end">
+        <!-- Clear signature space -->
+        <div class="h-12 flex items-center justify-center"></div>
+        <div class="border-t border-dotted border-black pt-1">প্রতি স্বাক্ষর, সভাপতি, পরীক্ষা কমিটি</div>
+        <div class="text-[8.5px] font-normal">(সীলমোহর)</div>
+      </div>
+      <div class="text-center w-56 flex flex-col justify-end">
+        <!-- Clear signature space -->
+        <div class="h-12 flex items-center justify-center"></div>
+        <div class="border-t border-dotted border-black pt-1">পরীক্ষকের স্বাক্ষর</div>
+        <div class="text-[9px] font-normal">তারিখ: <span id="signDate"></span></div>
+      </div>
+    </div>
+
+    <!-- Official Office Section (Revenue Stamp on LEFT, Sanction & Signatures on RIGHT) -->
+    <div class="mt-2 pt-1.5 border-t border-black text-[10px] leading-tight">
+      <div class="grid grid-cols-12 gap-3 items-stretch">
+        
+        <!-- Left: Revenue Stamp & Receipt Voucher (Original placement) -->
+        <div class="col-span-4 p-2 flex flex-col justify-between items-center text-center">
+          <div class="text-[9.5px] font-bold">বিল সংশ্লিষ্ট চেক বুঝে পেলাম।</div>
+          
+          <div class="w-14 h-16 border border-dashed border-red-500 rounded flex flex-col items-center justify-center text-[8.5px] text-red-600 font-bold my-1 bg-red-50/20">
+            <span>রাজস্ব</span>
+            <span>টিকিট</span>
+            <span class="text-[7.5px] text-slate-500">১০/-</span>
+          </div>
+
+          <div class="w-full border-t border-dotted border-black pt-1 text-[9px] font-bold">
+            তারিখসহ গ্রহণকারীর স্বাক্ষর
+          </div>
+        </div>
+
+        <!-- Right: Sanction Order & 4 Signatures (Original placement) -->
+        <div class="col-span-8 flex flex-col justify-between pl-1 min-h-[145px]">
+          <div class="space-y-1.5">
+            <div class="flex items-baseline">
+              <span class="font-medium whitespace-nowrap">বিষয় :</span>
+              <span id="officeSubject" class="dotted-input flex-1 min-h-[16px] mx-1 text-center font-semibold"></span>
+              <span class="font-medium whitespace-nowrap ml-2">পরীক্ষা :</span>
+              <span id="officeExam" class="dotted-input flex-1 min-h-[16px] ml-1 text-center font-semibold"></span>
+            </div>
+
+            <div class="flex items-baseline leading-relaxed">
+              <span class="font-medium whitespace-nowrap">প্রফেসর/ড./জনাব</span>
+              <span id="officePayeeName" class="dotted-input flex-1 min-h-[16px] mx-1 font-bold text-center"></span>
+              <span class="font-medium whitespace-nowrap">কে মোট</span>
+              <span id="officeTotalAmount" class="dotted-input w-20 min-h-[16px] mx-1 text-center font-bold font-mono"></span>
+              <span class="font-medium whitespace-nowrap">টাকা</span>
+            </div>
+
+            <div class="flex items-baseline">
+              <span class="font-medium whitespace-nowrap">(কথায়) :</span>
+              <span id="officeTotalWords" class="dotted-input flex-1 min-h-[16px] mx-1 font-semibold text-center text-[9.5px]"></span>
+              <span class="font-medium whitespace-nowrap">মাত্র প্রদান করুন।</span>
+            </div>
+          </div>
+
+          <!-- 4 Official Signatures with expanded height for signatures/stamps -->
+          <div class="grid grid-cols-4 gap-2 text-[9px] text-center font-bold pt-2">
+            <div class="flex flex-col justify-end">
+              <div class="h-11"></div>
+              <div class="border-t border-dotted border-black pt-1">বিল সহকারী</div>
+            </div>
+            <div class="flex flex-col justify-end">
+              <div class="h-11"></div>
+              <div class="border-t border-dotted border-black pt-1">সেকশন অফিসার</div>
+            </div>
+            <div class="flex flex-col justify-end">
+              <div class="h-11"></div>
+              <div class="border-t border-dotted border-black pt-1">উপ-পরীক্ষা নিয়ন্ত্রক, চ.বি.</div>
+            </div>
+            <div class="flex flex-col justify-end">
+              <div class="h-11"></div>
+              <div class="border-t border-dotted border-black pt-1 leading-tight">হিসাব নিয়ামক/<br>উপ-হিসাব নিয়ামক</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Original Printing Press Code -->
+      <div class="text-[8px] text-slate-600 text-right mt-1 font-mono">
+        চবিলে-৪৬০-৩৩,০০০-৩-২০২৫/ Controller of Exam Paritos Bill Form Job work-F
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Legal Sheet Paper Container: PAGE 2 (RATE SCHEDULE AS PER SYNDICATE 558) -->
+  <section class="legal-sheet page-gap mt-8">
+    <div class="text-center mb-2.5">
+      <h2 class="serif-bn text-[18px] font-bold text-black tracking-normal leading-tight">
+        পরীক্ষা-সংশ্লিষ্ট বিভিন্ন কাজের পারিতোষিক হার
+      </h2>
+      <p class="text-[11px] font-semibold text-black mt-0.5 leading-tight">
+        [০৪/০১/২০২৫ তারিখে অনুষ্ঠিত চট্টগ্রাম বিশ্ববিদ্যালয় সিন্ডিকেটের ৫৫৮-তম সভার ৩ নম্বর সিদ্ধান্তে অনুমোদিত]
+      </p>
+      <p class="text-[9.5px] text-black mt-0.5 underline">
+        নিম্নবর্ণিত পারিতোষিক হার ২০২৩ সালের পরীক্ষাসমূহ হতে কার্যকর হবে।
+      </p>
+    </div>
+
+    <!-- Page 2 Rates Table: 4 Columns with Separate 'কাজের বিবরণ' Column -->
+    <table class="w-full border-collapse border border-black text-[9px] leading-[1.15]">
+      <thead>
+        <tr class="text-center font-bold border-b border-black bg-slate-50 print:bg-transparent">
+          <th class="border border-black p-1 w-[32px]">ক্রমিক</th>
+          <th class="border border-black p-1 w-[200px] text-left">কাজের বিবরণ</th>
+          <th class="border border-black p-1 text-left">ঘণ্টা/অন্যান্য খাতসমূহ</th>
+          <th class="border border-black p-1 w-[145px] text-right pr-2">টাকার পরিমাণ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- ১. প্রশ্নপত্র প্রণয়ন -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold align-top" rowspan="8">১।</td>
+          <td class="border border-black p-0.5 font-bold align-top" rowspan="8">প্রশ্নপত্র প্রণয়ন</td>
+          <td class="border border-black p-0.5">স্নাতক/স্নাতকোত্তর: ৪ ঘণ্টা</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">২৫০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">৩ ঘণ্টা</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">২১০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">২ থেকে ২.৫ ঘণ্টা</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১৭০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">এম.ফিল/পি.এইচ.ডি: ৪ ঘণ্টা</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">২৮০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">সার্টিফিকেট কোর্স: প্রতি প্রশ্নপত্র</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১০০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5 leading-tight">
+            ব্যবহারিক (একই ব্যবহারিক কোর্সে একাধিক প্রশ্নপ্রণেতা থাকলে পারিতোষিক তাদের মধ্যে সমহারে বণ্টিত হবে) প্রতি কোর্স
+          </td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৪০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">টার্মিনাল: প্রতি কোর্স</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৩০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">টিউটোরিয়াল: প্রতি প্রশ্নপত্র</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৩০০/-</td>
+        </tr>
+
+        <!-- ২. প্রশ্নপত্র অনুবাদ -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold">২।</td>
+          <td class="border border-black p-0.5 font-bold">প্রশ্নপত্র অনুবাদ (তত্ত্বীয়)</td>
+          <td class="border border-black p-0.5">মূল ফি এর ৫০%</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৫০%</td>
+        </tr>
+
+        <!-- ৩. প্রশ্নপত্র সমীক্ষণ -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold align-top">৩।</td>
+          <td class="border border-black p-0.5 font-bold align-top">প্রশ্নপত্র সমীক্ষণ (মডারেশন)</td>
+          <td class="border border-black p-0.5 leading-tight text-[8.5px]" colspan="2">
+            প্রতিটি কোর্সের দুইটি (১ম ও ২য়) হিসেবে প্রশ্নপত্র তৈরির সর্বমোট ফি এর সমপরিমাণ অর্থ সমীক্ষা কাজে অংশগ্রহণকারী উপস্থিত সদস্যগণের মধ্যে সমভাবে বণ্টিত হবে। আনুষঙ্গিক কোর্সের মডারেশনের জন্য দুই সেট প্রশ্নপত্রের ফি এর সমপরিমাণ অর্থ উপস্থিত সদস্যগণ প্রাপ্ত হবেন।
+          </td>
+        </tr>
+
+        <!-- ৪. উত্তরপত্র পরীক্ষণ -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold align-top" rowspan="11">৪।</td>
+          <td class="border border-black p-0.5 font-bold align-top" rowspan="11">উত্তরপত্র পরীক্ষণ/ ৩য় পরীক্ষণ (প্রতি উত্তরপত্র)</td>
+          <td class="border border-black p-0.5">স্নাতক/স্নাতকোত্তর: ৪ ঘণ্টা</td>
+          <td class="border border-black p-0.5 text-right pr-2">১৫০/- <span class="text-[7.5px]">(ন্যূনতম ৮০০/-)</span></td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">৩ ঘণ্টা</td>
+          <td class="border border-black p-0.5 text-right pr-2">১৩০/- <span class="text-[7.5px]">(ন্যূনতম ৬০০/-)</span></td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">২ থেকে ২.৫ ঘণ্টা</td>
+          <td class="border border-black p-0.5 text-right pr-2">১০০/- <span class="text-[7.5px]">(ন্যূনতম ৫০০/-)</span></td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">এম.ফিল/পি.এইচ.ডি</td>
+          <td class="border border-black p-0.5 text-right pr-2">২৫০/- <span class="text-[7.5px]">(ন্যূনতম ১০০০/-)</span></td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">সার্টিফিকেট কোর্স</td>
+          <td class="border border-black p-0.5 text-right pr-2">১০০/- <span class="text-[7.5px]">(ন্যূনতম ৫০০/-)</span></td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5 leading-tight">ব্যবহারিক (একই ব্যবহারিক কোর্সে একাধিক পরীক্ষক নিযুক্ত থাকলে পারিতোষিক সমহারে প্রাপ্য হবেন): ৪ ঘণ্টা</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">২৫০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">৬-৮ ঘণ্টা</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">৩-৪ ঘণ্টা</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৮০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">স্ক্রুটিনি: (ব্যবহারিক উত্তরপত্র: তত্ত্বীয় কোর্স একক পরীক্ষণ)</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">২০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">টার্মিনাল / প্রেজেন্টেশন (১টি)</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৩০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5 leading-tight text-[8px]">
+            <strong>টিউটোরিয়াল / আভ্যন্তরীণ মূল্যায়ন</strong><br>
+            <span class="text-slate-600 print:text-black">(বি.দ্র. টিউটোরিয়াল খাতা/মূল্যায়ন সংশ্লিষ্ট কাগজপত্রসহ নম্বরপত্র অবশ্যই পরীক্ষা কমিটির সভাপতির নিকট জমা দিতে হবে। প্রতি কোর্সে সর্বোচ্চ ৩টি টিউটোরিয়াল পরীক্ষার বিল প্রাপ্য হবেন।)</span>
+          </td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2 align-top">৩০/-</td>
+        </tr>
+
+        <!-- ৫. ব্যবহারিক পরীক্ষকের সম্মানী -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold align-top" rowspan="2">৫।</td>
+          <td class="border border-black p-0.5 font-bold align-top" rowspan="2">ব্যবহারিক (পরীক্ষকের সম্মানী)</td>
+          <td class="border border-black p-0.5">(ক) পরিদর্শক-কাম-পরীক্ষক — প্রতি ঘণ্টা</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৪০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5 leading-tight">
+            (খ) প্রধান-পরিদর্শক-কাম-পরীক্ষক — প্রতি ঘণ্টা<br>
+            <span class="text-[7.5px] text-slate-600 print:text-black">(বি.দ্র. কোন বর্ষের ব্যবহারিক পরীক্ষায় কোন শিক্ষক সাত দিনের বেশি বিল পাবেন না।)</span>
+          </td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2 align-top">৫০০/-</td>
+        </tr>
+
+        <!-- ৬. মৌখিক পরীক্ষা -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold align-top" rowspan="9">৬।</td>
+          <td class="border border-black p-0.5 font-bold align-top" rowspan="9">মৌখিক পরীক্ষা (প্রতি পরীক্ষার্থী)</td>
+          <td class="border border-black p-0.5">স্নাতক/স্নাতকোত্তর</td>
+          <td class="border border-black p-0.5 text-right pr-2">১০০/- <span class="text-[7.5px]">(ন্যূনতম ১০০০/-)</span></td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">স্নাতক মনোগ্রাফ</td>
+          <td class="border border-black p-0.5 text-right pr-2">১২০/- <span class="text-[7.5px]">(ন্যূনতম ৫০০/-)</span></td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">মাস্টার্স (থিসিস)</td>
+          <td class="border border-black p-0.5 text-right pr-2">২০০/- <span class="text-[7.5px]">(ন্যূনতম ১০০০/-)</span></td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">এম.ফিল (কোর্স ওয়ার্ক)</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১০০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">এম.ফিল (থিসিস / ডিফেন্স)</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১৮০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">পি.এইচ.ডি</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">২২০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">ফিল্ড ওয়ার্ক/ইন্ডাস্ট্রিয়াল ট্যুর: প্রতি পরীক্ষক (প্রতি পরীক্ষার্থী)</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১২০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">ব্যবহারিক নোট বুক: প্রতি পরীক্ষক (প্রতি পরীক্ষার্থী)</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৩০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">সংগৃহীত নমুনা পরীক্ষণ</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৩০/-</td>
+        </tr>
+
+        <!-- ৭. রিসার্চ রিপোর্ট -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold align-top" rowspan="4">৭।</td>
+          <td class="border border-black p-0.5 font-bold align-top" rowspan="4">রিসার্চ রিপোর্ট/মনোগ্রাফ/টার্ম পেপার</td>
+          <td class="border border-black p-0.5 leading-tight">
+            রিসার্চ রিপোর্ট/মনোগ্রাফ/প্রজেক্ট/টার্ম পেপার/ইন্টার্নশিপ/এক্সটার্নশীপ রিপোর্ট: প্রতি ক্রেডিট<br>
+            <span class="text-[7.5px] text-slate-600 print:text-black">[বি.দ্র. ১ ক্রেডিট এর কম হলেও ২৫০/- প্রাপ্য হবেন।]</span>
+          </td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2 align-top">২৫০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">মাস্টার্স থিসিস</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১৮০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">এম.ফিল থিসিস</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৪০০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">পি-এইচ.ডি থিসিস</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৬৫০০/-</td>
+        </tr>
+
+        <!-- ৮. সুপারভিশন -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold align-top" rowspan="4">৮।</td>
+          <td class="border border-black p-0.5 font-bold align-top" rowspan="4">সুপারভিশন (প্রতি পরীক্ষার্থী)</td>
+          <td class="border border-black p-0.5 leading-tight">
+            রিসার্চ ইন্টার্নশীপ / টার্ম পেপার / প্রজেক্ট / মনোগ্রাফ (প্রতি ক্রেডিট/প্রতি ছাত্র)<br>
+            <span class="text-[7.5px] text-slate-600 print:text-black">(বি.দ্র. সুপারভিশনের জন্য অভ্যন্তরীণ ও বহিঃ সুপারভাইজার উভয়ই পারিতোষিক প্রাপ্ত হবেন)</span>
+          </td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2 align-top">৮০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">মাস্টার্স থিসিস</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৪০০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">এম.ফিল থিসিস</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১৮০০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">পি-এইচ.ডি থিসিস</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৩৫০০০/-</td>
+        </tr>
+
+        <!-- ৯. টেব্যুলেশন -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold align-top" rowspan="5">৯।</td>
+          <td class="border border-black p-0.5 font-bold align-top" rowspan="5">টেব্যুলেশন (প্রতি পরীক্ষার্থী)</td>
+          <td class="border border-black p-0.5">স্নাতক ১ম-৩য় বর্ষ ১ম-৭ম সেমিস্টার</td>
+          <td class="border border-black p-0.5 text-right pr-2">১০০/- <span class="text-[7.5px]">(ন্যূনতম ১০০০/-)</span></td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">স্নাতক ৪র্থ বর্ষ কম্বাইন্ড ৮ম সেমিস্টার + কম্বাইন্ড</td>
+          <td class="border border-black p-0.5 text-right pr-2">১২০+১২০/- <span class="text-[7.5px]">(ন্যূনতম ২০০০/-)</span></td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">স্নাতকোত্তর প্রতি বর্ষ সেমিস্টার</td>
+          <td class="border border-black p-0.5 text-right pr-2">১১০/- <span class="text-[7.5px]">(ন্যূনতম ১০০০/-)</span></td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">স্নাতকোত্তর কম্বাইন্ড (২য়/৩য় সেমিস্টার কম্বাইন্ড)</td>
+          <td class="border border-black p-0.5 text-right pr-2">১৩০+১৩০/- <span class="text-[7.5px]">(ন্যূনতম ২০০০/-)</span></td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">এম.ফিল/পি-এইচ.ডি</td>
+          <td class="border border-black p-0.5 text-right pr-2">১৩০/- <span class="text-[7.5px]">(ন্যূনতম ১০০০/-)</span></td>
+        </tr>
+
+        <!-- ১০. প্রশ্নপত্র লিখন -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold align-top" rowspan="2">১০।</td>
+          <td class="border border-black p-0.5 font-bold align-top" rowspan="2">প্রশ্নপত্র লিখন (A4 প্রতি পৃষ্ঠা)</td>
+          <td class="border border-black p-0.5">হাতে লেখা</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">কম্পিউটার</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৩৫০/-</td>
+        </tr>
+
+        <!-- ১১. প্রশ্নপত্র ফটোকপি -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold align-top" rowspan="2">১১।</td>
+          <td class="border border-black p-0.5 font-bold align-top" rowspan="2">প্রশ্নপত্র ফটোকপি (প্রতি পৃষ্ঠা)</td>
+          <td class="border border-black p-0.5">হাতে লেখা</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">২০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">কম্পিউটার</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৫০০/-</td>
+        </tr>
+
+        <!-- ১২. গ্রেডশিট লিখন -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold align-top" rowspan="5">১২।</td>
+          <td class="border border-black p-0.5 font-bold align-top" rowspan="5">গ্রেডশিট লিখন</td>
+          <td class="border border-black p-0.5">স্নাতক ১ম-৩য় বর্ষ ১ম-৭ম সেমিস্টার</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">স্নাতক (শেষ বর্ষ ৪র্থ বর্ষ কম্বাইন্ড ৮ম সেমিস্টার কম্বাইন্ড)</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১৩০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">স্নাতকোত্তর</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১২০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">স্নাতকোত্তর কম্বাইন্ড (২য়/৩য় সেমিস্টার কম্বাইন্ড)</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১২৫/- + ১২৫/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">এম.ফিল/পি-এইচ.ডি</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১৩০/-</td>
+        </tr>
+
+        <!-- ১৩. গ্রেডশিট যাচাইকরণ -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold align-top" rowspan="3">১৩।</td>
+          <td class="border border-black p-0.5 font-bold align-top" rowspan="3">গ্রেডশিট যাচাইকরণ</td>
+          <td class="border border-black p-0.5">স্নাতক ১ম-৩য় বর্ষ ১ম-৭ম সেমিস্টার/স্নাতকোত্তর/এম.ফিল/পি-এইচ.ডি</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৬০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">স্নাতক শেষ বর্ষ (৪র্থ বর্ষ কম্বাইন্ড) / (৮ম সেমিস্টার + কম্বাইন্ড)</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১০০/- + ১০০/-</td>
+        </tr>
+        <tr class="border-b border-black">
+          <td class="border border-black p-0.5">স্নাতকোত্তর কম্বাইন্ড (২য়/৩য় সেমিস্টার কম্বাইন্ড)</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">১০০/- + ১০০/-</td>
+        </tr>
+
+        <!-- ১৪. সভাপতির সম্মানী -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold">১৪।</td>
+          <td class="border border-black p-0.5 font-bold">পরীক্ষা কমিটির সভাপতি</td>
+          <td class="border border-black p-0.5 font-bold">পরীক্ষা কমিটির সভাপতির সম্মানী</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2 font-bold">৫০০০/-</td>
+        </tr>
+
+        <!-- ১৫. সদস্য প্রতি সম্মানী -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold">১৫।</td>
+          <td class="border border-black p-0.5 font-bold">পরীক্ষা কমিটির সদস্য</td>
+          <td class="border border-black p-0.5 font-bold">পরীক্ষা কমিটির সদস্যপ্রতি সম্মানী</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2 font-bold">৩০০০/-</td>
+        </tr>
+
+        <!-- ১৬. পরিদর্শক সম্মানী -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold">১৬।</td>
+          <td class="border border-black p-0.5 font-bold">টিউটোরিয়াল পরিদর্শক</td>
+          <td class="border border-black p-0.5">পরিদর্শক সম্মানী (প্রতি টিউটোরিয়াল)</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৩০০/-</td>
+        </tr>
+
+        <!-- ১৭. প্রধান পরিদর্শক -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold">১৭।</td>
+          <td class="border border-black p-0.5 font-bold">প্রধান পরিদর্শক সম্মানী</td>
+          <td class="border border-black p-0.5">প্রধান পরিদর্শক সম্মানী (প্রতি ঘণ্টা)</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৭০০/-</td>
+        </tr>
+
+        <!-- ১৮. পরিদর্শক সম্মানী -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold">১৮।</td>
+          <td class="border border-black p-0.5 font-bold">পরিদর্শক সম্মানী</td>
+          <td class="border border-black p-0.5">পরিদর্শক সম্মানী (প্রতি ঘণ্টা)</td>
+          <td class="border border-black p-0.5 text-right font-mono pr-2">৬০০/-</td>
+        </tr>
+
+        <!-- ১৯. আপ্যায়ন ব্যয় -->
+        <tr class="border-b border-black">
+          <td class="border border-black text-center p-0.5 font-bold">১৯।</td>
+          <td class="border border-black p-0.5 font-bold">আপ্যায়ন ব্যয়</td>
+          <td class="border border-black p-0.5 leading-tight">
+            পরীক্ষা কমিটির সভাপতির আপ্যায়ন ব্যয় (খরচের ভাউচার সংযুক্ত করতে হবে)
+          </td>
+          <td class="border border-black p-0.5 text-right pr-2">
+            <span class="text-[7.5px]">(সর্বোচ্চ)</span> ৩০০০/-
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Footer press mark -->
+    <div class="text-[8px] text-slate-600 text-right mt-2 font-mono">
+      চবিলে-৪৬০-৩৩,০০০-৩-২০২৫/ Controller of Exam Paritos Bill Form Job work-F
+    </div>
+  </section>
+
+  <!-- Modal 1: Verbatim Bangla Transcription -->
+  <div id="transcriptionModal" class="no-print fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-white w-full max-w-4xl max-h-[90vh] rounded-xl shadow-2xl flex flex-col overflow-hidden">
+      <div class="bg-slate-900 text-white px-5 py-3 flex justify-between items-center">
+        <div>
+          <h3 class="font-bold text-sm flex items-center gap-2">📄 মূল বাংলা অনুলিপি (Verbatim Transcription)</h3>
+          <p class="text-xs text-slate-400">পাতা ১ (বিল ফরম) এবং পাতা ২ (সিন্ডিকেট অনুমোদিত পারিতোষিক হার)</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyTranscription()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded text-xs text-emerald-400 flex items-center gap-1">
+            📋 কপি করুন
+          </button>
+          <button onclick="toggleTranscriptionModal()" class="text-slate-400 hover:text-white p-1">✕</button>
+        </div>
+      </div>
+      <div class="p-4 overflow-y-auto space-y-4 text-xs font-mono bg-slate-50">
+        <div class="bg-white p-4 rounded border border-slate-300">
+          <div class="font-bold text-emerald-800 mb-2">পাতা নং - ১ (পারিতোষিক বিল ফরম)</div>
+          <pre id="transcriptP1" class="whitespace-pre-wrap font-sans text-slate-800 text-[11px] leading-relaxed">
+রেজিস্টারের পৃষ্ঠা নং.......
+পরীক্ষকের ক্রমিক নং....
+পরীক্ষা সংক্রান্ত কাজের পারিতোষিক বিল ফরম
+(বিল সংশ্লিষ্ট পরীক্ষা কমিটির চেয়ারম্যানের মাধ্যমে পরীক্ষা অনুষ্ঠিত হওয়ার এক বছরের মধ্যে পরীক্ষা নিয়ন্ত্রণ দপ্তরে দাখিল করতে হবে। প্রতি পরীক্ষার জন্য পৃথক পৃথকভাবে বিল দাখিল করতে হবে।)
+
+[বাম কলাম]
+পরীক্ষকের নাম (বাংলায়)
+ইংরেজিতে (বড় অক্ষরে)
+পদবী, পূর্ণ ঠিকানা ও মোবাইল নম্বর
+ID Number:
+ব্যাংক হিসাব তথ্য:
+হিসাব নম্বর:         শাখা:
+ব্যাংকের নাম:        রাউটিং নম্বর:
+
+[ডান কলাম]
+বিষয়:
+পরীক্ষার নাম:
+পরীক্ষার বৎসর:
+পরীক্ষা অনুষ্ঠানের তারিখ:
+
+| ক্রমিক নং | কাজের নাম | কোর্স নং | খাতা/ছাত্রের সংখ্যা | কত ঘন্টার পরীক্ষা/ প্রশ্নপত্রের মোট পৃষ্ঠা সংখ্যা | মোট দিন / সদস্য সংখ্যা | অর্ধ/পূর্ণ পত্র ক্রেডিট | টাকার পরিমাণ |
+| ১. | প্রশ্নপত্র প্রণয়ন: | | | | | | |
+|    | তত্ত্বীয় কোর্স | | | | | | |
+|    | ব্যবহারিক কোর্স | | | | | | |
+|    | টিউটোরিয়াল/অভ্যন্তরীণ মূল্যায়ন | | | | | | |
+|    | টার্মিনাল | | | | | | |
+| ২. | প্রশ্নপত্র সমীক্ষণ (মডারেশন) | | | | | | |
+| ৩. | প্রশ্নপত্র অনুবাদ (তত্ত্বীয়) | | | | | | |
+| ৪. | প্রশ্নপত্র লিখন (হাতে লিখিত/কম্পিউটার) | | | | | | |
+| ৫. | প্রশ্নপত্র ফটোকপি (হাতে লিখিত/কম্পিউটার) | | | | | | |
+| ৬. | উত্তরপত্র পরীক্ষণ: | | | | | | |
+|    | তত্ত্বীয় কোর্স | | | | | | |
+|    | কোর্স ব্যবহারিক | | | | | | |
+|    | টিউটোরিয়াল/অভ্যন্তরীন মূল্যায়ন | | | | | | |
+|    | টার্মিনাল | | | | | | |
+|    | প্রেজেন্টেশন | | | | | | |
+|    | ৩য় পরীক্ষণ | | | | | | |
+|    | স্ক্রুটিনি | | | | | | |
+| ৭. | মৌখিক পরীক্ষা (কোর্স / মাস্টার্স থিসিস ডিফেন্স) | | | | | | |
+| ৮. | প্রতি পরীক্ষক (প্রতি পরীক্ষার্থী) | | | | | | |
+|    | ফিল্ড ওয়ার্ক/ইন্ডাস্ট্রিয়াল ট্যুর | | | | | | |
+|    | ব্যবহারিক নোট বুক/সংগৃহিত নমুনা পরীক্ষণ | | | | | | |
+|    | রিসার্চ রিপোর্ট/মনোগ্রাফ/প্রজেক্ট | | | | | | |
+|    | টার্ম পেপার/ইন্টার্ণশীপ/ এক্সটার্নশীপ রিপোর্ট | | | | | | |
+|    | থিসিস (মাস্টার্স/এম.ফিল/পিএইচ.ডি) | | | | | | |
+| ৯. | ব্যবহারিক পরীক্ষার সম্মানী: (ক) পরিদর্শক-কাম-পরীক্ষক | | | | | | |
+|    | (খ) প্রধান-পরিদর্শক-কাম-পরীক্ষক | | | | | | |
+| ১০. | টেবুলেশন | | | | | | |
+| ১১. | গ্রেডসিট লিখন | | | | | | |
+| ১২. | গ্রেডসিট যাচাইকরণ | | | | | | |
+| ১৩. | সুপারভিশন | | | | | | |
+| ১৪. | পরীক্ষা কমিটির সভাপতির সম্মানী | | | | | | |
+| ১৫. | পরীক্ষা কমিটির সদস্য প্রতি সম্মানী | | | | | | |
+| ১৬. | পরিদর্শক সম্মানী (প্রতি টিউটোরিয়াল) | | | | | | |
+| ১৭  | পরীক্ষা কমিটির সভাপতির আপ্যায়ন ব্যয় (খরচের ভাউচার সংযুক্ত) | | | | | | |
+| ১৮. | ইনসিডেন্টাল চার্জ (খরচের ভাউচার সংযুক্ত) | | | | | | |
+|     | মোট টাকা (কথায় = ........................................................) = | | | | | | [টাকা] |
+
+প্রতি স্বাক্ষর, সভাপতি, পরীক্ষা কমিটি (সীলমোহর)       পরীক্ষকের স্বাক্ষর
+
+বিল সংশ্লিষ্ট চেক বুঝে পেলাম।
+[রাজস্ব টিকিট]
+তারিখসহ গ্রহণকারীর স্বাক্ষর
+
+বিষয়: .................... পরীক্ষা: ....................
+প্রফেসর/ড./জনাব ................................. কে মোট ................ টাকা (কথায় .................................) মাত্র প্রদান করুন।
+বিল সহকারী | সেকশন অফিসার | উপ-পরীক্ষা নিয়ন্ত্রক, চ.বি. | হিসাব নিয়ামক/উপ-হিসাব নিয়ামক
+          </pre>
+        </div>
+
+        <div class="bg-white p-4 rounded border border-slate-300">
+          <div class="font-bold text-amber-800 mb-2">পাতা নং - ২ (পারিতোষিক হার তালিকা - সিন্ডিকেট ৫৫৮তম সভা)</div>
+          <pre id="transcriptP2" class="whitespace-pre-wrap font-sans text-slate-800 text-[11px] leading-relaxed">
+পরীক্ষা-সংশ্লিষ্ট বিভিন্ন কাজের পারিতোষিক হার
+[০৪/০১/২০২৫ তারিখে অনুষ্ঠিত চট্টগ্রাম বিশ্ববিদ্যালয় সিন্ডিকেটের ৫৫৮-তম সভার ৩ নম্বর সিদ্ধান্তে অনুমোদিত
+নিম্নবর্ণিত পারিতোষিক হার ২০২৩ সালের পরীক্ষাসমূহ হতে কার্যকর হবে।]
+
+১। প্রশ্নপত্র প্রণয়ন:
+   - স্নাতক/স্নাতকোত্তর: ৪ ঘণ্টা: ২৫০০/-, ৩ ঘণ্টা: ২১০০/-, ২ থেকে ২.৫ ঘণ্টা: ১৭০০/-
+   - এম.ফিল/পি.এইচ.ডি: ৪ ঘণ্টা: ২৮০০/-
+   - সার্টিফিকেট কোর্স: প্রতি প্রশ্নপত্র ১০০০/-
+   - ব্যবহারিক: প্রতি কোর্স ৪০০/-
+   - টার্মিনাল / টিউটোরিয়াল: প্রতি প্রশ্নপত্র ৩০০/-
+২। প্রশ্নপত্র অনুবাদ (তত্ত্বীয়): ৫০%
+৩। প্রশ্নপত্র সমীক্ষণ (মডারেশন): সদস্যগণের মধ্যে সমভাবে বণ্টিত হবে।
+৪। উত্তরপত্র পরীক্ষণ/৩য় পরীক্ষণ:
+   - স্নাতক/স্নাতকোত্তর: ৪ ঘণ্টা: ১৫০/- (ন্যূনতম ৮০০/-), ৩ ঘণ্টা: ১৩০/- (ন্যূনতম ৬০০/-), ২-২.৫ ঘণ্টা: ১০০/- (ন্যূনতম ৫০০/-)
+   - এম.ফিল/পি.এইচ.ডি: ২৫০/- (ন্যূনতম ১০০০/-), সার্টিফিকেট কোর্স: ১০০/-, ব্যবহারিক: ৮০/-, স্ক্রুটিনি: ২০/-, টার্মিনাল/প্রেজেন্টেশন/টিউটোরিয়াল: ৩০/-
+৫। ব্যবহারিক (পরীক্ষকের সম্মানী): (ক) পরিদর্শক-কাম-পরীক্ষক: প্রতি ঘণ্টা ৪০০/-, (খ) প্রধান-পরিদর্শক-কাম-পরীক্ষক: প্রতি ঘণ্টা ৫০০/-
+৬। মৌখিক পরীক্ষা (প্রতি পরীক্ষার্থী): স্নাতক/স্নাতকোত্তর: ১০০/- (ন্যূনতম ১০০০/-), থিসিস ডিফেন্স: ২০০/- হতে ২২০০/-
+৭। রিসার্চ রিপোর্ট/মনোগ্রাফ/প্রজেক্ট/টার্ম পেপার: প্রতি ক্রেডিট ২৫০/-; মাস্টার্স থিসিস: ১৮০০/-, এম.ফিল: ৪০০০/-, পিএইচডি: ৬৫০০/-
+৮। সুপারভিশন: প্রজেক্ট/মনোগ্রাফ: প্রতি ক্রেডিট/ছাত্র ৮০০/-, মাস্টার্স থিসিস: ৪০০০/-, এম.ফিল: ১৮০০০/-, পিএইচডি: ৩৫০০০/-
+৯। টেবুলেশন: স্নাতক ১ম-৩য় বর্ষ: ১০০/- (ন্যূনতম ১০০০/-), ৪র্থ বর্ষ কম্বাইন্ড: ১২০+১২০/-, স্নাতকোত্তর: ১১০/- / ১৩০+১৩০/-
+১০। প্রশ্নপত্র লিখন (A4): হাতে লেখা ১০০/-, কম্পিউটার ৩৫০/-
+১১। প্রশ্নপত্র ফটোকপি: হাতে লেখা ২০০/-, কম্পিউটার ৫০০/-
+১২। গ্রেডশিট লিখন: স্নাতক ১০০/-, ৪র্থ বর্ষ কম্বাইন্ড ১৩০/-, স্নাতকোত্তর ১২০/-
+১৩। গ্রেডশিট যাচাইকরণ: ৬০/- হতে ১২৫+১২৫/-
+১৪। পরীক্ষা কমিটির সভাপতির সম্মানী: ৫০০০/-
+১৫। পরীক্ষা কমিটির সদস্যপ্রতি সম্মানী: ৩০০০/-
+১৬। পরিদর্শক সম্মানী (প্রতি টিউটোরিয়াল): ৩০০/-
+১৭। প্রধান পরিদর্শক (প্রতি ঘণ্টা): ৭০০/-, পরিদর্শক (প্রতি ঘণ্টা): ৬০০/-
+১৯। পরীক্ষা কমিটির সভাপতির আপ্যায়ন ব্যয়: সর্বোচ্চ ৩০০০/-
+          </pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Rates Guide -->
+  <div id="ratesModal" class="no-print fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-white w-full max-w-3xl max-h-[85vh] rounded-xl shadow-2xl flex flex-col overflow-hidden">
+      <div class="bg-amber-600 text-white px-5 py-3 flex justify-between items-center">
+        <h3 class="font-bold text-sm">⚖️ চ.বি. পরীক্ষা পারিতোষিক হার নির্দেশিকা (৫৫৮তম সিন্ডিকেট)</h3>
+        <button onclick="toggleRatesModal()" class="text-white p-1">✕</button>
+      </div>
+      <div class="p-4 overflow-y-auto text-xs grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="border rounded p-2.5 bg-slate-50">
+          <span class="font-bold text-indigo-700 block mb-1">প্রশ্নপত্র প্রণয়ন ও লিখন:</span>
+          <div>• স্নাতক ৪ ঘণ্টা: ২৫০০/- | ৩ ঘণ্টা: ২১০০/- | ২-২.৫ ঘণ্টা: ১৭০০/-</div>
+          <div>• এম.ফিল/পিএইচ.ডি ৪ ঘণ্টা: ২৮০০/- | সার্টিফিকেট: ১০০০/-</div>
+          <div>• টিউটোরিয়াল/টার্মিনাল: ৩০০/- | ব্যবহারিক: ৪০০/-</div>
+          <div>• প্রশ্ন লিখন: কম্পিউটার ৩৫০/- | হাতে লেখা ১০০/- (প্রতি পৃষ্ঠা)</div>
+          <div>• প্রশ্ন ফটোকপি: কম্পিউটার ৫০০/- | হাতে লেখা ২০০/-</div>
+        </div>
+        <div class="border rounded p-2.5 bg-slate-50">
+          <span class="font-bold text-emerald-700 block mb-1">উত্তরপত্র মূল্যায়ন (প্রতি খাতা):</span>
+          <div>• ৪ ঘণ্টা: ১৫০/- (ন্যূনতম ৮০০/-)</div>
+          <div>• ৩ ঘণ্টা: ১৩০/- (ন্যূনতম ৬০০/-)</div>
+          <div>• ২-২.৫ ঘণ্টা: ১০০/- (ন্যূনতম ৫০০/-)</div>
+          <div>• টিউটোরিয়াল/টার্মিনাল: ৩০/- | স্ক্রুটিনি: ২০/-</div>
+          <div>• মৌখিক পরীক্ষা: ১০০/- (ন্যূনতম ১০০০/-)</div>
+        </div>
+        <div class="border rounded p-2.5 bg-slate-50">
+          <span class="font-bold text-amber-700 block mb-1">কমিটি ও টেবুলেশন:</span>
+          <div>• সভাপতি সম্মানী: ৫০০০/- | সদস্য সম্মানী: ৩০০০/-</div>
+          <div>• সভাপতির আপ্যায়ন ব্যয়: সর্বোচ্চ ৩০০০/-</div>
+          <div>• টেবুলেশন (প্রতি ছাত্র): ১০০/- (ন্যূনতম ১০০০/-)</div>
+          <div>• কম্বাইন্ড টেবুলেশন: ১২০+১২০/- (ন্যূনতম ২০০০/-)</div>
+        </div>
+        <div class="border rounded p-2.5 bg-slate-50">
+          <span class="font-bold text-purple-700 block mb-1">সুপারভিশন ও পরিদর্শক:</span>
+          <div>• মাস্টার্স থিসিস সুপারভিশন: ৪০০০/- | পিএইচডি: ৩৫০০০/-</div>
+          <div>• প্রজেক্ট/মনোগ্রাফ: প্রতি ক্রেডিট/ছাত্র ৮০০/-</div>
+          <div>• পরিদর্শক সম্মানী (প্রতি ঘণ্টা): ৬০০/- | প্রধান: ৭০০/-</div>
+          <div>• ব্যবহারিক পরীক্ষক (প্রতি ঘণ্টা): ৪০০/- | প্রধান: ৫০০/-</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Box -->
+  <div id="toastNotification" class="no-print fixed bottom-4 right-4 z-50 bg-slate-900 text-white px-3.5 py-2 rounded text-xs shadow-lg transform transition duration-300 translate-y-16 opacity-0">
+    <span id="toastMsg"></span>
+  </div>
+
+  <script>
+    // 32 items matching Chittagong University bill sheet
+    const originalFormRows = [
+      { id: "1_theo", sl: "১.", title: "প্রশ্নপত্র প্রণয়ন:", sub: "তত্ত্বীয় কোর্স", canAdd: true, addBtnText: "+ কোর্স" },
+      { id: "1_prac", sl: "", title: "", sub: "ব্যবহারিক কোর্স", canAdd: true, addBtnText: "+ কোর্স" },
+      { id: "1_tut", sl: "", title: "", sub: "টিউটোরিয়াল/অভ্যন্তরীণ মূল্যায়ন", canAdd: true, addBtnText: "+ টিউটোরিয়াল" },
+      { id: "1_term", sl: "", title: "", sub: "টার্মিনাল", canAdd: true, addBtnText: "+ কোর্স" },
+      { id: "2_mod", sl: "২.", title: "প্রশ্নপত্র সমীক্ষণ (মডারেশন)", sub: "" },
+      { id: "3_trans", sl: "৩.", title: "প্রশ্নপত্র অনুবাদ (তত্ত্বীয়)", sub: "" },
+      { id: "4_write", sl: "৪.", title: "প্রশ্নপত্র লিখন (হাতে লিখিত/কম্পিউটার)", sub: "" },
+      { id: "5_photo", sl: "৫.", title: "প্রশ্নপত্র ফটোকপি (হাতে লিখিত/কম্পিউটার)", sub: "" },
+      { id: "6_theo", sl: "৬.", title: "উত্তরপত্র পরীক্ষণ:", sub: "তত্ত্বীয় কোর্স", canAdd: true, addBtnText: "+ কোর্স" },
+      { id: "6_prac", sl: "", title: "", sub: "কোর্স ব্যবহারিক", canAdd: true, addBtnText: "+ কোর্স" },
+      { id: "6_tut", sl: "", title: "", sub: "টিউটোরিয়াল/অভ্যন্তরীন মূল্যায়ন", canAdd: true, addBtnText: "+ টিউটোরিয়াল" },
+      { id: "6_term", sl: "", title: "", sub: "টার্মিনাল", canAdd: true, addBtnText: "+ কোর্স" },
+      { id: "6_pres", sl: "", title: "", sub: "প্রেজেন্টেশন", canAdd: true, addBtnText: "+ প্রেজেন্টেশন" },
+      { id: "6_third", sl: "", title: "", sub: "৩য় পরীক্ষণ", canAdd: true, addBtnText: "+ কোর্স" },
+      { id: "6_scrut", sl: "", title: "", sub: "স্ক্রুটিনি", canAdd: true, addBtnText: "+ কোর্স" },
+      { id: "7_viva", sl: "৭.", title: "মৌখিক পরীক্ষা (কোর্স / মাস্টার্স থিসিস ডিফেন্স)", sub: "", canAdd: true, addBtnText: "+ কোর্স" },
+      { id: "8_field", sl: "৮.", title: "প্রতি পরীক্ষক (প্রতি পরীক্ষার্থী)", sub: "ফিল্ড ওয়ার্ক/ইন্ডাস্ট্রিয়াল ট্যুর" },
+      { id: "8_note", sl: "", title: "", sub: "ব্যবহারিক নোট বুক/ সংগৃহিত নমুনা পরীক্ষণ" },
+      { id: "8_rep", sl: "", title: "", sub: "রিসার্চ রিপোর্ট/মনোগ্রাফ/প্রজেক্ট", canAdd: true, addBtnText: "+ কোর্স" },
+      { id: "8_term_rep", sl: "", title: "", sub: "টার্ম পেপার/ইন্টার্ণশীপ/ এক্সটার্নশীপ রিপোর্ট", canAdd: true, addBtnText: "+ কোর্স" },
+      { id: "8_thesis", sl: "", title: "", sub: "থিসিস (মাস্টার্স/এম.ফিল/পিএইচ.ডি)" },
+      { id: "9_invig", sl: "৯.", title: "ব্যবহারিক পরীক্ষার সম্মানী", sub: "(ক) পরিদর্শক-কাম-পরীক্ষক", canAdd: true, addBtnText: "+ কোর্স" },
+      { id: "9_chief", sl: "", title: "", sub: "(খ) প্রধান-পরিদর্শক-কাম-পরীক্ষক", canAdd: true, addBtnText: "+ কোর্স" },
+      { id: "10_tab", sl: "১০.", title: "টেবুলেশন", sub: "" },
+      { id: "11_grade_w", sl: "১১.", title: "গ্রেডসিট লিখন", sub: "" },
+      { id: "12_grade_v", sl: "১২.", title: "গ্রেডসিট যাচাইকরণ", sub: "" },
+      { id: "13_super", sl: "১৩.", title: "সুপারভিশন", sub: "" },
+      { id: "14_chair", sl: "১৪.", title: "পরীক্ষা কমিটির সভাপতির সম্মানী", sub: "" },
+      { id: "15_mem", sl: "১৫.", title: "পরীক্ষা কমিটির সদস্য প্রতি সম্মানী", sub: "" },
+      { id: "16_tut_invig", sl: "১৬.", title: "পরিদর্শক সম্মানী (প্রতি টিউটোরিয়াল)", sub: "", canAdd: true, addBtnText: "+ টিউটোরিয়াল" },
+      { id: "17_entertain", sl: "১৭", title: "পরীক্ষা কমিটির সভাপতির আপ্যায়ন ব্যয়", sub: "(খরচের ভাউচার সংযুক্ত)" },
+      { id: "18_incidental", sl: "১৮.", title: "ইনসিডেন্টাল চার্জ (খরচের ভাউচার সংযুক্ত)", sub: "" }
+    ];
+
+    const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    function toBnNumber(num) {
+      if (num === null || num === undefined || isNaN(num)) return '০';
+      return num.toString().replace(/\d/g, d => bnDigits[parseInt(d)]);
+    }
+
+    function toEnNumber(str) {
+      if (!str) return 0;
+      const normalized = str.toString().replace(/[০-৯]/g, d => '০১২৩৪৫৬৭৮৯'.indexOf(d));
+      const val = parseFloat(normalized);
+      return isNaN(val) ? 0 : val;
+    }
+
+    function numberToWordsBengali(n) {
+      n = Math.floor(toEnNumber(n));
+      if (n === 0) return "শূন্য টাকা মাত্র";
+      if (n < 0) return "ঋণাত্মক " + numberToWordsBengali(Math.abs(n));
+
+      const units = ["", "এক", "দুই", "তিন", "চার", "পাঁচ", "ছয়", "সাত", "আট", "নয়", "দশ",
+        "এগার", "বার", "তের", "চৌদ্দ", "পনের", "ষোল", "সতের", "আঠার", "উনিশ", "বিশ",
+        "একুশ", "বাইশ", "তেইশ", "চব্বিশ", "পঁচিশ", "ছাব্বিশ", "সাতাশ", "আঠাশ", "ঊনত্রিশ", "ত্রিশ",
+        "একত্রিশ", "বত্রিশ", "তেত্রিশ", "চৌত্রিশ", "পঁয়ত্রিশ", "ছত্রিশ", "সাঁইত্রিশ", "আটত্রিশ", "ঊনচল্লিশ", "চল্লিশ",
+        "একচল্লিশ", "বিয়াল্লিশ", "তেতাল্লিশ", "চুয়াল্লিশ", "পঁয়তাল্লিশ", "ছেচল্লিশ", "সাতচল্লিশ", "আটচল্লিশ", "ঊনপঞ্চাশ", "পঞ্চাশ",
+        "একান্ন", "বায়ান্ন", "তিপ্পান্ন", "চুয়ান্ন", "পঞ্চান্ন", "ছাপ্পান্ন", "সাতান্ন", "আটান্ন", "ঊনষাট", "ষাট",
+        "একষট্টি", "বাষট্টি", "তেষট্টি", "চৌষট্টি", "পঁয়ষট্টি", "ছেষট্টি", "সাতষট্টি", "আটষট্টি", "ঊনসত্তর", "সত্তর",
+        "একাত্তর", "বাহাত্তর", "তিয়াত্তর", "চুয়াত্তর", "পঁচাত্তর", "ছিয়াত্তর", "সাতাত্তর", "আটাত্তর", "ঊনআশি", "আশি",
+        "একাশি", "বিরাশি", "তিরাশি", "চুরাশি", "পঁচাশি", "ছিয়াশি", "সাতাশি", "অষ্টআশি", "ঊননব্বই", "নব্বই",
+        "একানব্বই", "বানব্বই", "তিরানব্বই", "চুরানব্বই", "পঁচানব্বই", "ছিয়ানব্বই", "সাতানব্বই", "আটানব্বই", "নিরানব্বই"
+      ];
+
+      let words = "";
+      const crore = Math.floor(n / 10000000);
+      n %= 10000000;
+      const lakh = Math.floor(n / 100000);
+      n %= 100000;
+      const thousand = Math.floor(n / 1000);
+      n %= 1000;
+      const hundred = Math.floor(n / 100);
+      n %= 100;
+
+      if (crore > 0) words += numberToWordsBengali(crore).replace(" টাকা মাত্র", "") + " কোটি ";
+      if (lakh > 0) words += units[lakh] + " লক্ষ ";
+      if (thousand > 0) words += units[thousand] + " হাজার ";
+      if (hundred > 0) words += units[hundred] + " শত ";
+      if (n > 0) words += units[n] + " ";
+
+      return words.trim() + " টাকা মাত্র";
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('billTableRows');
+      tbody.innerHTML = '';
+
+      originalFormRows.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.id = `row_${row.id}`;
+        tr.className = "border-b border-black";
+        
+        let labelHtml = '';
+        if (row.title && row.sub) {
+          labelHtml = `<span>${row.title}</span> <span class="pl-2 font-normal">${row.sub}</span>`;
+        } else if (row.title) {
+          labelHtml = `<span>${row.title}</span>`;
+        } else {
+          labelHtml = `<span class="pl-3 font-normal text-[9px]">${row.sub}</span>`;
+        }
+
+        if (row.canAdd) {
+          const btnLabel = row.addBtnText || '+ কোর্স';
+          labelHtml += ` <button type="button" onclick="addExtraCourseRow('${row.id}')" class="no-print ml-1.5 px-1 py-0.2 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 rounded text-[8.5px] font-bold border border-emerald-300" title="আরেকটি সারি যোগ করুন">${btnLabel}</button>`;
+        }
+
+        tr.innerHTML = `
+          <td class="border border-black text-center p-0.5 font-bold">${row.sl}</td>
+          <td class="border border-black p-0.5 text-left font-medium leading-none">${labelHtml}</td>
+          <td class="border border-black p-0"><input type="text" id="course_${row.id}" oninput="scheduleAutoSave()" class="w-full text-center border-0 p-0 text-[9.5px] bg-transparent focus:outline-none focus:bg-amber-50"></td>
+          <td class="border border-black p-0"><input type="text" id="scripts_${row.id}" oninput="autoCalculateRow('${row.id}')" placeholder="খাতা" class="w-full text-center border-0 p-0 text-[9.5px] bg-transparent focus:outline-none focus:bg-amber-50"></td>
+          <td class="border border-black p-0"><input type="text" id="hours_${row.id}" list="hoursList" oninput="autoCalculateRow('${row.id}')" placeholder="ঘণ্টা/পৃষ্ঠা" class="w-full text-center border-0 p-0 text-[9.5px] bg-transparent focus:outline-none focus:bg-amber-50"></td>
+          <td class="border border-black p-0"><input type="text" id="days_${row.id}" oninput="autoCalculateRow('${row.id}')" placeholder="দিন/সদস্য" class="w-full text-center border-0 p-0 text-[9.5px] bg-transparent focus:outline-none focus:bg-amber-50"></td>
+          <td class="border border-black p-0"><input type="text" id="credit_${row.id}" oninput="autoCalculateRow('${row.id}')" placeholder="ক্রেডিট" class="w-full text-center border-0 p-0 text-[9.5px] bg-transparent focus:outline-none focus:bg-amber-50"></td>
+          <td class="border border-black p-0"><input type="text" id="amount_${row.id}" oninput="calculateTotal()" placeholder="০.০০" class="amount-input w-full text-right border-0 p-0 pr-1 text-[9.5px] font-mono font-semibold bg-transparent focus:outline-none focus:bg-amber-50"></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    let extraCourseCount = 0;
+    function addExtraCourseRow(baseRowId, customId = null) {
+      extraCourseCount++;
+      const newId = customId || `${baseRowId}_extra_${extraCourseCount}`;
+      const parentRow = document.getElementById(`row_${baseRowId}`);
+      if (!parentRow) return;
+
+      let labelText = "অতিরিক্ত কোর্স";
+      if (baseRowId === '1_theo') labelText = "প্রশ্নপত্র প্রণয়ন (তত্ত্বীয়)";
+      else if (baseRowId === '1_prac') labelText = "প্রশ্নপত্র প্রণয়ন (ব্যবহারিক)";
+      else if (baseRowId === '1_tut') labelText = "প্রশ্নপত্র প্রণয়ন (টিউটোরিয়াল)";
+      else if (baseRowId === '1_term') labelText = "প্রশ্নপত্র প্রণয়ন (টার্মিনাল)";
+      else if (baseRowId === '6_theo') labelText = "উত্তরপত্র পরীক্ষণ (তত্ত্বীয়)";
+      else if (baseRowId === '6_prac') labelText = "উত্তরপত্র পরীক্ষণ (ব্যবহারিক)";
+      else if (baseRowId === '6_tut') labelText = "উত্তরপত্র পরীক্ষণ (টিউটোরিয়াল)";
+      else if (baseRowId === '6_term') labelText = "উত্তরপত্র পরীক্ষণ (টার্মিনাল)";
+      else if (baseRowId === '6_pres') labelText = "উত্তরপত্র পরীক্ষণ (প্রেজেন্টেশন)";
+      else if (baseRowId === '6_third') labelText = "৩য় পরীক্ষণ";
+      else if (baseRowId === '6_scrut') labelText = "স্ক্রুটিনি";
+      else if (baseRowId === '7_viva') labelText = "মৌখিক পরীক্ষা";
+      else if (baseRowId === '8_rep') labelText = "রিসার্চ রিপোর্ট/মনোগ্রাফ";
+      else if (baseRowId === '8_term_rep') labelText = "টার্ম পেপার/ইন্টার্নশিপ";
+      else if (baseRowId === '9_invig') labelText = "পরিদর্শক-কাম-পরীক্ষক";
+      else if (baseRowId === '9_chief') labelText = "প্রধান-পরিদর্শক-কাম-পরীক্ষক";
+      else if (baseRowId === '16_tut_invig') labelText = "টিউটোরিয়াল পরিদর্শক সম্মানী";
+
+      const newTr = document.createElement('tr');
+      newTr.id = `row_${newId}`;
+      newTr.className = "border-b border-black bg-emerald-50/20";
+      newTr.setAttribute('data-dynamic', 'true');
+      newTr.setAttribute('data-basetype', baseRowId);
+
+      newTr.innerHTML = `
+        <td class="border border-black text-center p-0.5 font-bold"></td>
+        <td class="border border-black p-0.5 text-left font-medium leading-none">
+          <span class="pl-3 font-normal text-[9px]">${labelText} (অতিরিক্ত)</span>
+          <button type="button" onclick="removeExtraCourseRow('${newId}')" class="no-print ml-1 text-red-600 hover:text-red-800 text-[9.5px] font-bold px-1" title="সারিটি মুছুন">✕</button>
+        </td>
+        <td class="border border-black p-0"><input type="text" id="course_${newId}" oninput="scheduleAutoSave()" class="w-full text-center border-0 p-0 text-[9.5px] bg-transparent focus:outline-none focus:bg-amber-50"></td>
+        <td class="border border-black p-0"><input type="text" id="scripts_${newId}" oninput="autoCalculateRow('${newId}', '${baseRowId}')" placeholder="খাতা" class="w-full text-center border-0 p-0 text-[9.5px] bg-transparent focus:outline-none focus:bg-amber-50"></td>
+        <td class="border border-black p-0"><input type="text" id="hours_${newId}" list="hoursList" oninput="autoCalculateRow('${newId}', '${baseRowId}')" placeholder="ঘণ্টা/পৃষ্ঠা" class="w-full text-center border-0 p-0 text-[9.5px] bg-transparent focus:outline-none focus:bg-amber-50"></td>
+        <td class="border border-black p-0"><input type="text" id="days_${newId}" oninput="autoCalculateRow('${newId}', '${baseRowId}')" placeholder="দিন/সদস্য" class="w-full text-center border-0 p-0 text-[9.5px] bg-transparent focus:outline-none focus:bg-amber-50"></td>
+        <td class="border border-black p-0"><input type="text" id="credit_${newId}" oninput="autoCalculateRow('${newId}', '${baseRowId}')" placeholder="ক্রেডিট" class="w-full text-center border-0 p-0 text-[9.5px] bg-transparent focus:outline-none focus:bg-amber-50"></td>
+        <td class="border border-black p-0"><input type="text" id="amount_${newId}" oninput="calculateTotal()" placeholder="০.০০" class="amount-input w-full text-right border-0 p-0 pr-1 text-[9.5px] font-mono font-semibold bg-transparent focus:outline-none focus:bg-amber-50"></td>
+      `;
+
+      // Insert sequentially after the last added row of this section
+      let insertAfterNode = parentRow;
+      let nextEl = parentRow.nextElementSibling;
+      while (nextEl && nextEl.getAttribute('data-basetype') === baseRowId) {
+        insertAfterNode = nextEl;
+        nextEl = nextEl.nextElementSibling;
+      }
+      insertAfterNode.parentNode.insertBefore(newTr, insertAfterNode.nextSibling);
+      scheduleAutoSave();
+    }
+
+    function removeExtraCourseRow(rowId) {
+      const row = document.getElementById(`row_${rowId}`);
+      if (row) {
+        row.remove();
+        calculateTotal();
+        scheduleAutoSave();
+      }
+    }
+
+    // Auto-fill Routing number and Branch based on selected bank
+    function handleBankSelection() {
+      const bankInput = document.getElementById('bankName');
+      const branchInput = document.getElementById('bankBranch');
+      const routingInput = document.getElementById('bankRouting');
+      if (!bankInput || !routingInput) return;
+
+      const bank = bankInput.value.trim();
+      const branch = branchInput.value.trim();
+
+      if (bank.includes('জনতা') || bank.toLowerCase().includes('janata')) {
+        routingInput.value = '১৩৫১৫২০৮১';
+        if (!branchInput.value) branchInput.value = 'চ.বি. শাখা';
+        showToast("জনতা ব্যাংক (চ.বি. শাখা) রাউটিং নম্বর ১৩৫১৫২০৮১ যুক্ত হয়েছে!");
+      } else if (bank.includes('অগ্রণী') || bank.toLowerCase().includes('agrani')) {
+        routingInput.value = '০১০১৫২০৮৫';
+        if (!branchInput.value) branchInput.value = 'চ.বি. শাখা';
+        showToast("অগ্রণী ব্যাংক (চ.বি. শাখা) রাউটিং নম্বর ০১০১৫২০৮৫ যুক্ত হয়েছে!");
+      } else if (bank.includes('সোনালী') || bank.toLowerCase().includes('sonali')) {
+        routingInput.value = '২০০১৫০১৩৭';
+        if (!branchInput.value) branchInput.value = 'চ.বি. শাখা';
+        showToast("সোনালী ব্যাংক (চ.বি. শাখা) রাউটিং নম্বর ২০০১৫০১৩৭ যুক্ত হয়েছে!");
+      }
+      scheduleAutoSave();
+    }
+
+    // Convert selected dates from calendar pickers to Bengali format
+    function updateExamDatesFromPickers() {
+      const startVal = document.getElementById('startDatePicker')?.value;
+      const endVal = document.getElementById('endDatePicker')?.value;
+
+      function formatDateToBn(isoDate) {
+        if (!isoDate) return '';
+        const parts = isoDate.split('-');
+        if (parts.length !== 3) return '';
+        return `${toBnNumber(parts[2])}/${toBnNumber(parts[1])}/${toBnNumber(parts[0])}`;
+      }
+
+      const startBn = formatDateToBn(startVal);
+      const endBn = formatDateToBn(endVal);
+
+      const examDatesInput = document.getElementById('examDates');
+      if (examDatesInput) {
+        if (startBn && endBn) {
+          examDatesInput.value = `${startBn} হতে ${endBn}`;
+        } else if (startBn) {
+          examDatesInput.value = startBn;
+        } else if (endBn) {
+          examDatesInput.value = endBn;
+        }
+      }
+      scheduleAutoSave();
+    }
+
+    // Syndicate 558th meeting rate logic calculation
+    function autoCalculateRow(rowId, baseType = null) {
+      const type = baseType || rowId;
+      const scripts = toEnNumber(document.getElementById(`scripts_${rowId}`)?.value || '');
+      const hours = toEnNumber(document.getElementById(`hours_${rowId}`)?.value || '');
+      const days = toEnNumber(document.getElementById(`days_${rowId}`)?.value || '');
+      const credit = toEnNumber(document.getElementById(`credit_${rowId}`)?.value || '');
+      const amountInput = document.getElementById(`amount_${rowId}`);
+      if (!amountInput) return;
+
+      let calculatedAmount = 0;
+
+      if (type.startsWith('6_third') || type === '6_third') {
+        if (scripts > 0) {
+          let rate = 130;
+          let minAmount = 600;
+          if (hours >= 4) { rate = 150; minAmount = 800; }
+          else if (hours >= 3) { rate = 130; minAmount = 600; }
+          else if (hours >= 2) { rate = 100; minAmount = 500; }
+          calculatedAmount = Math.max(scripts * rate, minAmount);
+        }
+      } else {
+        switch(type) {
+          case '1_theo':
+            if (hours >= 4) calculatedAmount = 2500;
+            else if (hours >= 3) calculatedAmount = 2100;
+            else if (hours >= 2) calculatedAmount = 1700;
+            else if (hours > 0) calculatedAmount = 1700;
+            break;
+          case '1_prac':
+            calculatedAmount = 400;
+            break;
+          case '1_tut':
+          case '1_term':
+            calculatedAmount = 300;
+            break;
+          case '2_mod':
+            calculatedAmount = 2500;
+            break;
+          case '4_write':
+            calculatedAmount = (hours > 0 ? hours : 1) * 350;
+            break;
+          case '5_photo':
+            calculatedAmount = (hours > 0 ? hours : 1) * 500;
+            break;
+          case '6_theo':
+            if (scripts > 0) {
+              let rate = 130;
+              let minAmount = 600;
+              if (hours >= 4) { rate = 150; minAmount = 800; }
+              else if (hours >= 3) { rate = 130; minAmount = 600; }
+              else if (hours >= 2) { rate = 100; minAmount = 500; }
+              calculatedAmount = Math.max(scripts * rate, minAmount);
+            }
+            break;
+          case '6_prac':
+            if (scripts > 0) calculatedAmount = scripts * 80;
+            break;
+          case '6_tut':
+          case '6_term':
+          case '6_pres':
+            if (scripts > 0) calculatedAmount = scripts * 30;
+            break;
+          case '6_scrut':
+            if (scripts > 0) calculatedAmount = scripts * 20;
+            break;
+          case '7_viva':
+            if (scripts > 0) calculatedAmount = Math.max(scripts * 100, 1000);
+            break;
+          case '8_field':
+            if (scripts > 0) calculatedAmount = scripts * 120;
+            break;
+          case '8_note':
+            if (scripts > 0) calculatedAmount = scripts * 30;
+            break;
+          case '8_rep':
+          case '8_term_rep':
+            if (credit > 0) calculatedAmount = credit * 250;
+            else if (scripts > 0) calculatedAmount = scripts * 250;
+            break;
+          case '8_thesis':
+            calculatedAmount = 1800;
+            break;
+          case '9_invig':
+            if (hours > 0 && days > 0) calculatedAmount = days * hours * 400;
+            else if (hours > 0) calculatedAmount = hours * 400;
+            else if (days > 0) calculatedAmount = days * 4 * 400;
+            break;
+          case '9_chief':
+            if (hours > 0 && days > 0) calculatedAmount = days * hours * 500;
+            else if (hours > 0) calculatedAmount = hours * 500;
+            else if (days > 0) calculatedAmount = days * 4 * 500;
+            break;
+          case '10_tab':
+            if (scripts > 0) calculatedAmount = Math.max(scripts * 100, 1000);
+            break;
+          case '11_grade_w':
+            if (scripts > 0) calculatedAmount = scripts * 100;
+            break;
+          case '12_grade_v':
+            if (scripts > 0) calculatedAmount = scripts * 60;
+            break;
+          case '13_super':
+            if (credit > 0 && scripts > 0) calculatedAmount = credit * scripts * 800;
+            else if (scripts > 0) calculatedAmount = scripts * 4000;
+            break;
+          case '14_chair':
+            calculatedAmount = 5000;
+            break;
+          case '15_mem':
+            calculatedAmount = (days > 0 ? days : 1) * 3000;
+            break;
+          case '16_tut_invig':
+            const tutCount = scripts > 0 ? scripts : (days > 0 ? days : 1);
+            calculatedAmount = tutCount * 300;
+            break;
+          case '17_entertain':
+            calculatedAmount = 3000;
+            break;
+        }
+      }
+
+      if (calculatedAmount > 0) {
+        amountInput.value = calculatedAmount;
+      }
+      calculateTotal();
+      scheduleAutoSave();
+    }
+
+    function calculateTotal() {
+      let grandTotal = 0;
+      document.querySelectorAll('.amount-input').forEach(input => {
+        const val = toEnNumber(input.value);
+        if (!isNaN(val) && val > 0) {
+          grandTotal += val;
+        }
+      });
+
+      const bnTotal = toBnNumber(grandTotal.toFixed(2));
+      document.getElementById('grandTotalDisplay').innerText = bnTotal + ' /-';
+      const wordsBn = numberToWordsBengali(grandTotal);
+      document.getElementById('totalInWords').innerText = wordsBn;
+
+      // Bottom verification section sync
+      document.getElementById('officeTotalAmount').innerText = bnTotal + '/-';
+      document.getElementById('officeTotalWords').innerText = wordsBn;
+    }
+
+    function setupSync() {
+      const nameBn = document.getElementById('examinerNameBn');
+      const subject = document.getElementById('subjectName');
+      const exam = document.getElementById('examName');
+
+      nameBn.addEventListener('input', () => {
+        document.getElementById('officePayeeName').innerText = nameBn.value;
+        scheduleAutoSave();
+      });
+      subject.addEventListener('input', () => {
+        document.getElementById('officeSubject').innerText = subject.value;
+        scheduleAutoSave();
+      });
+      exam.addEventListener('input', () => {
+        document.getElementById('officeExam').innerText = exam.value;
+        scheduleAutoSave();
+      });
+
+      // Attach auto-save to all standard inputs
+      document.querySelectorAll('input').forEach(inp => {
+        inp.addEventListener('input', scheduleAutoSave);
+      });
+
+      // Hook exam name input to datalist
+      exam.setAttribute('list', 'examNameList');
+    }
+
+    // Auto-Save System using localStorage
+    let saveTimeout = null;
+    function scheduleAutoSave() {
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(saveFormDataToStorage, 350);
+    }
+
+    function saveFormDataToStorage() {
+      const formData = {
+        inputs: {},
+        dynamicRows: []
+      };
+
+      document.querySelectorAll('input').forEach(inp => {
+        if (inp.id) {
+          formData.inputs[inp.id] = inp.value;
+        }
+      });
+
+      document.querySelectorAll('tr[data-dynamic="true"]').forEach(tr => {
+        formData.dynamicRows.push({
+          rowId: tr.id.replace('row_', ''),
+          baseType: tr.getAttribute('data-basetype')
+        });
+      });
+
+      const logoImg = document.querySelector('#logoDisplayContainer img');
+      if (logoImg) {
+        formData.customLogo = logoImg.src;
+      }
+
+      localStorage.setItem('cu_bill_form_data', JSON.stringify(formData));
+    }
+
+    function loadSavedFormData() {
+      const saved = localStorage.getItem('cu_bill_form_data');
+      if (!saved) return;
+
+      try {
+        const formData = JSON.parse(saved);
+        if (formData.dynamicRows && formData.dynamicRows.length > 0) {
+          formData.dynamicRows.forEach(item => {
+            if (!document.getElementById(`row_${item.rowId}`)) {
+              addExtraCourseRow(item.baseType, item.rowId);
+            }
+          });
+        }
+
+        if (formData.inputs) {
+          Object.keys(formData.inputs).forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = formData.inputs[id];
+          });
+        }
+
+        if (formData.customLogo) {
+          document.getElementById('logoDisplayContainer').innerHTML = 
+            `<img src="${formData.customLogo}" alt="চট্টগ্রাম বিশ্ববিদ্যালয় লোগো" class="h-20 w-auto object-contain drop-shadow-sm">`;
+        }
+
+        // Trigger UI sync
+        document.getElementById('examinerNameBn').dispatchEvent(new Event('input'));
+        document.getElementById('subjectName').dispatchEvent(new Event('input'));
+        document.getElementById('examName').dispatchEvent(new Event('input'));
+        calculateTotal();
+      } catch (e) {
+        console.error("Error restoring saved form data:", e);
+      }
+    }
+
+    function downloadPreFilledHtml() {
+      saveFormDataToStorage();
+      const currentDoc = document.documentElement.outerHTML;
+      const blob = new Blob([currentDoc], { type: 'text/html;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `CU_Exam_Bill_${document.getElementById('examinerNameEn').value || 'Staff'}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast("সম্পূর্ণ তথ্যসহ HTML ফাইলটি ডাউনলোড হয়েছে!");
+    }
+
+    function fillSampleData() {
+      document.getElementById('regPageNo').value = "৭৮";
+      document.getElementById('examinerSerialNo').value = "১৫";
+
+      document.getElementById('examinerNameBn').value = "প্রফেসর ড. মুহাম্মদ মহিউদ্দিন";
+      document.getElementById('examinerNameEn').value = "PROF. DR. MUHAMMAD MOHIUDDIN";
+      document.getElementById('subjectName').value = "পদার্থবিদ্যা";
+      document.getElementById('examYear').value = "২০২৩";
+      document.getElementById('examName').value = "৪র্থ বর্ষ বি.এস.সি. (সম্মান) পরীক্ষা";
+      document.getElementById('examDates').value = "১০/১১/২০২৪ হতে ১৫/১২/২০২৪";
+      document.getElementById('designationAddress').value = "অধ্যাপক, পদার্থবিদ্যা বিভাগ, চট্টগ্রাম বিশ্ববিদ্যালয়";
+      if (document.getElementById('examinerMobile')) document.getElementById('examinerMobile').value = "০১৭১১-২৩৪৫৬৭";
+
+      document.getElementById('bankAccNo').value = "০২০০০০৫৬৭৮৯০";
+      document.getElementById('bankBranch').value = "চ.বি. শাখা";
+      document.getElementById('bankName').value = "অগ্রণী ব্যাংক পিএলসি";
+      document.getElementById('bankRouting').value = "০১০১৫২০৮৫";
+
+      document.getElementById('course_1_theo').value = "PHY-401";
+      document.getElementById('hours_1_theo').value = "৪ ঘণ্টা";
+      document.getElementById('amount_1_theo').value = "2500";
+
+      document.getElementById('course_2_mod').value = "PHY-401";
+      document.getElementById('amount_2_mod').value = "2500";
+
+      document.getElementById('course_6_theo').value = "PHY-401";
+      document.getElementById('scripts_6_theo').value = "৫০ টি";
+      document.getElementById('hours_6_theo').value = "৪ ঘণ্টা";
+      document.getElementById('amount_6_theo').value = "7500";
+
+      document.getElementById('course_7_viva').value = "PHY-415";
+      document.getElementById('scripts_7_viva').value = "৫০ জন";
+      document.getElementById('amount_7_viva').value = "5000";
+
+      document.getElementById('amount_14_chair').value = "5000";
+
+      document.getElementById('examinerNameBn').dispatchEvent(new Event('input'));
+      document.getElementById('subjectName').dispatchEvent(new Event('input'));
+      document.getElementById('examName').dispatchEvent(new Event('input'));
+
+      calculateTotal();
+      scheduleAutoSave();
+      showToast("নমুনা তথ্য যুক্ত করা হয়েছে!");
+    }
+
+    function clearForm() {
+      localStorage.removeItem('cu_bill_form_data');
+      document.querySelectorAll('input').forEach(input => {
+        if (input.id === 'bankBranch') {
+          input.value = 'চ.বি. শাখা';
+        } else if (input.id === 'bankName') {
+          input.value = 'অগ্রণী ব্যাংক পিএলসি';
+        } else {
+          input.value = '';
+        }
+      });
+      document.querySelectorAll('tr[data-dynamic="true"]').forEach(tr => tr.remove());
+      calculateTotal();
+      document.getElementById('officeSubject').innerText = '';
+      document.getElementById('officeExam').innerText = '';
+      document.getElementById('officePayeeName').innerText = '';
+      showToast("সব তথ্য মুছে খালি ফরম তৈরি করা হয়েছে!");
+    }
+
+    function toggleTranscriptionModal() {
+      document.getElementById('transcriptionModal').classList.toggle('hidden');
+    }
+    function toggleRatesModal() {
+      document.getElementById('ratesModal').classList.toggle('hidden');
+    }
+
+    function copyTranscription() {
+      const p1 = document.getElementById('transcriptP1').innerText;
+      const p2 = document.getElementById('transcriptP2').innerText;
+      const combined = `=== চ.বি. পরীক্ষা সংক্রান্ত পারিতোষিক বিল ফরম অনুলিপি ===\n\n[পাতা ১]\n${p1}\n\n[পাতা ২ - হার তালিকা]\n${p2}`;
+      
+      const el = document.createElement('textarea');
+      el.value = combined;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      showToast("অনুলিপি ক্লিপবোর্ডে কপি করা হয়েছে!");
+    }
+
+    function showToast(text) {
+      const t = document.getElementById('toastNotification');
+      document.getElementById('toastMsg').innerText = text;
+      t.classList.remove('translate-y-16', 'opacity-0');
+      setTimeout(() => t.classList.add('translate-y-16', 'opacity-0'), 3000);
+    }
+
+    // Smart 1-Page Legal Auto-Fit Logic
+    function autoFitBillPage() {
+      const billSheet = document.getElementById('billSheet');
+      if (!billSheet) return;
+
+      const userChoice = document.getElementById('fitScaleSelect')?.value || 'auto';
+      if (userChoice !== 'auto') {
+        const scaleVal = parseFloat(userChoice);
+        billSheet.style.zoom = scaleVal;
+        return;
+      }
+
+      // Reset zoom to 1 to measure natural scrollHeight
+      billSheet.style.zoom = '1';
+
+      // Legal printable height at standard 96 DPI: 14in - margins = ~1230px
+      const maxLegalPrintHeight = 1230;
+      const actualHeight = billSheet.scrollHeight;
+
+      if (actualHeight > maxLegalPrintHeight) {
+        const requiredScale = Math.max(0.80, Math.floor((maxLegalPrintHeight / actualHeight) * 98) / 100);
+        billSheet.style.zoom = requiredScale;
+      } else {
+        billSheet.style.zoom = '1';
+      }
+    }
+
+    function applyUserFitScale() {
+      autoFitBillPage();
+      const val = document.getElementById('fitScaleSelect').value;
+      if (val === 'auto') {
+        showToast("১ পাতায় অটো-ফিট সক্রিয় করা হয়েছে!");
+      } else {
+        showToast(`স্কেল ${Math.round(parseFloat(val)*100)}% নির্ধারণ করা হয়েছে!`);
+      }
+    }
+
+    function printLegalForm() {
+      autoFitBillPage();
+      window.print();
+    }
+
+    // Auto-fit trigger before print dialog opens
+    window.addEventListener('beforeprint', autoFitBillPage);
+    window.addEventListener('afterprint', () => {
+      const choice = document.getElementById('fitScaleSelect')?.value || 'auto';
+      if (choice === 'auto') {
+        document.getElementById('billSheet').style.zoom = '1';
+      }
+    });
+
+    function handleLogoUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const container = document.getElementById('logoDisplayContainer');
+          container.innerHTML = `<img src="${e.target.result}" alt="চট্টগ্রাম বিশ্ববিদ্যালয় লোগো" class="h-20 w-auto object-contain drop-shadow-sm">`;
+          scheduleAutoSave();
+          showToast("নতুন লোগো সফলভাবে যুক্ত করা হয়েছে!");
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    window.onload = function() {
+      renderTable();
+      setupSync();
+      loadSavedFormData();
+      const d = new Date();
+      document.getElementById('signDate').innerText = `${toBnNumber(d.getDate())}/${toBnNumber(d.getMonth()+1)}/${toBnNumber(d.getFullYear())}`;
+    };
+  </script>
+</body>
+</html>
